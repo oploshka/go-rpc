@@ -61,6 +61,7 @@ func (rRes *RpcResponse) SetError(error *rpcError) *RpcResponse {
 func NewRpcResponse() *RpcResponse {
 
 	rRes := new(RpcResponse)
+	rRes.rpcRequest = NewRpcRequest()
 	rRes.data = make(map[string]interface{})
 	rRes.error = NewRpcError()
 	return rRes

@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"project-my-test/src/Rpc"
+	"project-my-test/src/Rpc/Plugin/RpcStructure"
 	"project-my-test/test/Helper/Method"
 	"project-my-test/test/Helper/Method/MethodTestData"
 )
@@ -31,9 +32,9 @@ func main() {
 
 		// TODO: временное решение
 		log.Println("=================================")
-		log.Println(rpcResponse)
+		responseStruct := RpcStructure.MultipartJsonRpcResponseEncode(rpcResponse)
 
-		js, err := json.Marshal(rpcResponse.GetData())
+		js, err := json.Marshal(responseStruct)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
