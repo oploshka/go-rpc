@@ -1,4 +1,4 @@
-package Rpc
+package RpcOld
 
 type RpcMethod struct {
 	Response *RpcResponse

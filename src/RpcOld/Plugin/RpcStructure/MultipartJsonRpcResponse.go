@@ -38,7 +38,7 @@ type MultipartJsonRpcResponse_response_error struct {
 	Data    interface{} `json:"data"`
 }
 
-func MultipartJsonRpcResponseEncode(rResp *Rpc.RpcResponse) *MultipartJsonRpcResponse {
+func MultipartJsonRpcResponseEncode(rResp *RpcOld.RpcResponse) *MultipartJsonRpcResponse {
 
 	resp := MultipartJsonRpcResponse{
 		Specification:        "multipart-json-rpc",

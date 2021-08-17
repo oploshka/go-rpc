@@ -1,4 +1,4 @@
-package Rpc
+package RpcOld
 
 type iMethod interface {
 	// GetDescription() string
