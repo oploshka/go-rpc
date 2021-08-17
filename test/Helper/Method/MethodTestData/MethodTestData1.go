@@ -10,6 +10,8 @@ type MethodTestData1 struct {
 		TestUserString 	*string
 		TestUserInt 	*int
 	}
+	// di
+	// Logger *iLogger
 }
 
 func (r *MethodTestData1) GetRequestSchema() map[string]Rpc.RpcReformSchema {
