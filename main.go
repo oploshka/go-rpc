@@ -26,9 +26,9 @@ func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		//
 		rpcRequestTestMethod := Rpc.NewRpcRequest()
-		rpcRequestTestMethod.SetMethodName("testMethod")
+		rpcRequestTestMethod.SetMethodName("MethodTestData1")
 		//
-		rpcResponse := rpcClient.RunMethodByRpcRequest(rpcRequestTestMethod)
+		rpcResponse := rpcClient.TestJsonMethodByRpcRequest("{\"full_name\": \"Andrey\"}", rpcRequestTestMethod)
 
 		// TODO: временное решение
 		log.Println("=================================")

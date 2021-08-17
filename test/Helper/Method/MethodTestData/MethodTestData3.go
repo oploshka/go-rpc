@@ -6,7 +6,13 @@ import (
 
 type MethodTestData3 struct {
 	Rpc.RpcMethod
+	Data struct{}
 }
+
+func (r *MethodTestData3) GetRequestSchema() map[string]Rpc.RpcReformSchema {
+	return make(map[string]Rpc.RpcReformSchema)
+}
+
 
 func (r *MethodTestData3) Run() *Rpc.RpcResponse {
 	r.Response.SetData("test::string", "string")
