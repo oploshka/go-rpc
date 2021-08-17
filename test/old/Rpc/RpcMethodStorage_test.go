@@ -3,7 +3,7 @@ package Rpc
 import (
 	"github.com/stretchr/testify/assert"
 	"project-my-test/src/Rpc"
-	"project-my-test/test/Helper/Method"
+	"project-my-test/testHelper/methodHelper/methodHelper_group2"
 	"testing"
 )
 
@@ -14,7 +14,7 @@ func TestRpcMethodStorage_correctWork(t *testing.T) {
 	//
 	methodStore := Rpc.NewRpcMethodStore()
 
-	methodStore.Add("test1", new(Method.ReturnRequestSchemaData), "group1")
+	methodStore.Add("test1", new(methodHelper_group2.ReturnRequestSchemaData), "group1")
 	// methodStore.Add("test2", "class2", "group2")
 	// methodStore.Add("test3", "class3", "group3")
 

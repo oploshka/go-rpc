@@ -1,4 +1,4 @@
-package Helper
+package rpcHelper
 
 //import (
 //	"github.com/stretchr/testify/assert"

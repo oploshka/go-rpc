@@ -46,20 +46,19 @@ func (rc *RpcCore) RpcMethodDataInit(method iMethod, jsonMap map[string]json.Raw
 	objValue := reflect.ValueOf(method).Elem()
 	dataStructLink := objValue.FieldByName("Data")
 
-	var Reform = reformHelper.GetOldReform()
+	var Reform = reformHelper.GetBaseReform()
 
 	for fieldName := range RequestSchema {
 
 		jsonFieldValue, ok := jsonMap[ RequestSchema[fieldName].Field ]
 		log.Print(ok)
 
-		//var str string
-		//err := json.Unmarshal(jsonFieldValue, &str)
-		//log.Print(err)
-		var funcReform = Reform[ RequestSchema[fieldName].Type ]
-		res, _ := funcReform(jsonFieldValue)
+		res3, err3 := Reform.RunReformItem( RequestSchema[fieldName].Type, jsonFieldValue)
+		if err3 != nil {
+			log.Println("ERROR ReformNew.RunReformItem", err3)
+		}
 
-		strSet := reflect.ValueOf(res)
+		strSet := reflect.ValueOf(res3)
 		dataStructLink.FieldByName(fieldName).Set(strSet)
 	}
 }

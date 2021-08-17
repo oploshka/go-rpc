@@ -1,4 +1,4 @@
-package MethodTestData
+package methodHelper_group1
 
 import (
 	"project-my-test/src/Rpc"

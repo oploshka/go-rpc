@@ -1,7 +1,8 @@
-package Method
+package methodHelper_group2
 
 import (
 	"project-my-test/src/Rpc"
+	"project-my-test/testHelper/reformHelper"
 )
 
 
@@ -17,11 +18,11 @@ func (r *ReturnRequestSchemaData) GetRequestSchema() map[string]Rpc.RpcReformSch
 	rs := make(map[string]Rpc.RpcReformSchema)
 
 	rs["Name"] = Rpc.RpcReformSchema{
-		Type: "STRING",
+		Type: reformHelper.REFORM_STRING,
 		Field: "name", // TODO: FieldLoad and FieldReturn
 	}
 	rs["Email"] = Rpc.RpcReformSchema{
-		Type: "STRING",
+		Type: reformHelper.REFORM_STRING,
 		Field: "email", // TODO: FieldLoad and FieldReturn
 	}
 	//RequestSchema struct{ Name, Email string `mytag:"MyEmail"` }
