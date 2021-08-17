@@ -1,4 +1,4 @@
-package Rpc
+package rpc
 
 import (
 	"github.com/stretchr/testify/assert"
