@@ -28,7 +28,7 @@ func main() {
 		rpcRequestTestMethod := Rpc.NewRpcRequest()
 		rpcRequestTestMethod.SetMethodName("MethodTestData1")
 		//
-		rpcResponse := rpcClient.TestJsonMethodByRpcRequest("{\"full_name\": \"Andrey\"}", rpcRequestTestMethod)
+		rpcResponse := rpcClient.TestJsonMethodByRpcRequest("{\"full_name\": \"Andrey\", \"number\": 17 }", rpcRequestTestMethod)
 
 		// TODO: временное решение
 		log.Println("=================================")

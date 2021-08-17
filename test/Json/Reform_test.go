@@ -71,6 +71,27 @@ func RpcMethodDataInit(method Rpc.IMethod, jsonMap map[string]json.RawMessage) {
 	//structValue := reflect.ValueOf(dd).Elem()
 	//structFieldValue := structValue.FieldByName("Name")
 	//log.Print(structFieldValue)
+
+	var Reform = make(map[string]func(jsonFieldValue json.RawMessage) (interface{}, error))
+	Reform["STRING"] = func(jsonFieldValue json.RawMessage) (interface{}, error) {
+		var str string
+		err := json.Unmarshal(jsonFieldValue, &str)
+		if err != nil {
+			log.Print(err)
+			return nil, err
+		}
+		return &str, nil
+	}
+	Reform["INT"] = func(jsonFieldValue json.RawMessage) (interface{}, error) {
+		var str int
+		err := json.Unmarshal(jsonFieldValue, &str)
+		if err != nil {
+			log.Print(err)
+			return nil, err
+		}
+		return &str, nil
+	}
+
 	for fieldName := range RequestSchema {
 
 		jsonFieldValue, ok := jsonMap[ RequestSchema[fieldName].Field ]
@@ -83,7 +104,13 @@ func RpcMethodDataInit(method Rpc.IMethod, jsonMap map[string]json.RawMessage) {
 		//err2 := reflections.SetField(dataStructLink, fieldName, &str)
 		//log.Print(err2)
 		//iStr := str
-		strSet := reflect.ValueOf(&str)
+
+		var funcReform = Reform[ RequestSchema[fieldName].Type ]
+		res, _ := funcReform(jsonFieldValue)
+
+		//strSet := reflect.ValueOf(&str)
+		strSet := reflect.ValueOf(res)
+
 		dataStructLink.FieldByName(fieldName).Set(strSet)
 	}
 }

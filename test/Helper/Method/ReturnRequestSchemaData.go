@@ -22,7 +22,7 @@ func (r *ReturnRequestSchemaData) GetRequestSchema() map[string]Rpc.RpcReformSch
 	}
 	rs["Email"] = Rpc.RpcReformSchema{
 		Type: "STRING",
-		Field: "email",
+		Field: "email", // TODO: FieldLoad and FieldReturn
 	}
 	//RequestSchema struct{ Name, Email string `mytag:"MyEmail"` }
 	return rs
