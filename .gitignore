@@ -9,6 +9,6 @@ bin/*
 !bin/.gitkeep
 readme-help.md
 readme-wtf.md
-src/Rpc/Plugin/Logger.php
-src/Rpc/Plugin/RpcFormatter/Json.php
-src/Rpc/Plugin/RpcRequestLoad/Post_MultipartFormData_Field.php
+src/RpcOld/Plugin/Logger.php
+src/RpcOld/Plugin/RpcFormatter/Json.php
+src/RpcOld/Plugin/RpcRequestLoad/Post_MultipartFormData_Field.php
