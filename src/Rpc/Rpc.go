@@ -3,6 +3,7 @@ package Rpc
 import (
 	"encoding/json"
 	"log"
+	"project-my-test/testHelper/reformHelper"
 	"reflect"
 )
 
@@ -45,25 +46,7 @@ func (rc *RpcCore) RpcMethodDataInit(method iMethod, jsonMap map[string]json.Raw
 	objValue := reflect.ValueOf(method).Elem()
 	dataStructLink := objValue.FieldByName("Data")
 
-	var Reform = make(map[string]func(jsonFieldValue json.RawMessage) (interface{}, error))
-	Reform["STRING"] = func(jsonFieldValue json.RawMessage) (interface{}, error) {
-		var str string
-		err := json.Unmarshal(jsonFieldValue, &str)
-		if err != nil {
-			log.Print(err)
-			return nil, err
-		}
-		return &str, nil
-	}
-	Reform["INT"] = func(jsonFieldValue json.RawMessage) (interface{}, error) {
-		var str int
-		err := json.Unmarshal(jsonFieldValue, &str)
-		if err != nil {
-			log.Print(err)
-			return nil, err
-		}
-		return &str, nil
-	}
+	var Reform = reformHelper.GetOldReform()
 
 	for fieldName := range RequestSchema {
 

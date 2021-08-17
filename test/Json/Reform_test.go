@@ -8,6 +8,7 @@ import (
 	"log"
 	"project-my-test/src/Rpc"
 	"project-my-test/test/Helper/Method"
+	"project-my-test/testHelper/reformHelper"
 	"reflect"
 	"testing"
 )
@@ -72,25 +73,7 @@ func RpcMethodDataInit(method Rpc.IMethod, jsonMap map[string]json.RawMessage) {
 	//structFieldValue := structValue.FieldByName("Name")
 	//log.Print(structFieldValue)
 
-	var Reform = make(map[string]func(jsonFieldValue json.RawMessage) (interface{}, error))
-	Reform["STRING"] = func(jsonFieldValue json.RawMessage) (interface{}, error) {
-		var str string
-		err := json.Unmarshal(jsonFieldValue, &str)
-		if err != nil {
-			log.Print(err)
-			return nil, err
-		}
-		return &str, nil
-	}
-	Reform["INT"] = func(jsonFieldValue json.RawMessage) (interface{}, error) {
-		var str int
-		err := json.Unmarshal(jsonFieldValue, &str)
-		if err != nil {
-			log.Print(err)
-			return nil, err
-		}
-		return &str, nil
-	}
+	var ReformNew = reformHelper.GetBaseReform()
 
 	for fieldName := range RequestSchema {
 
@@ -105,11 +88,18 @@ func RpcMethodDataInit(method Rpc.IMethod, jsonMap map[string]json.RawMessage) {
 		//log.Print(err2)
 		//iStr := str
 
-		var funcReform = Reform[ RequestSchema[fieldName].Type ]
-		res, _ := funcReform(jsonFieldValue)
 
+		//var Reform = reformHelper.GetOldReform()
+		//var funcReform = Reform[ RequestSchema[fieldName].Type ]
+		//res, _ := funcReform(jsonFieldValue)
 		//strSet := reflect.ValueOf(&str)
-		strSet := reflect.ValueOf(res)
+
+		res3, err3 := ReformNew.RunReformItem( RequestSchema[fieldName].Type, jsonFieldValue)
+		if err3 != nil {
+			log.Println("ERROR ReformNew.RunReformItem", err3)
+		}
+
+		strSet := reflect.ValueOf(res3)
 
 		dataStructLink.FieldByName(fieldName).Set(strSet)
 	}

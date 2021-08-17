@@ -1,4 +1,4 @@
-package reform
+package reformHelper
 
 import (
 	"project-my-test/src/reform"
@@ -9,7 +9,7 @@ import (
 const REFORM_INTEGER 	= "INTEGER"
 const REFORM_STRING 	= "STRING"
 
-func getBaseReform() reformInterface.Reform {
+func GetBaseReform() reformInterface.Reform {
 	reform := reform.NewReform()
 	reform.AddReformItem(REFORM_INTEGER, &reformItem.IntReformItem{})
 	reform.AddReformItem(REFORM_STRING , &reformItem.StringReformItem{})
