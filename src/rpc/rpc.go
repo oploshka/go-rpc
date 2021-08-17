@@ -2,7 +2,6 @@ package rpc
 
 import (
 	"encoding/json"
-	"log"
 	"project-my-test/src/rpc/rpcInterface"
 	"project-my-test/testHelper/reformHelper"
 	"reflect"
@@ -38,7 +37,7 @@ func (rc *RpcCore) RunMethodByRpcRequest(rReq *request) rpcInterface.Response {
 // RpcMethodDataInit
 // это магический метод DTO входных данных - который закидывает данные внутрь метода
 // данный метод находится в процессе разработки (нет отлова ошибок и доп проверок)
-func (rc *RpcCore) RpcMethodDataInit(method rpcInterface.Method, jsonMap map[string]json.RawMessage) {
+func (rc *RpcCore) RpcMethodDataInit(method rpcInterface.Method, jsonMap map[string]json.RawMessage) rpcInterface.Error {
 
 	// get method schema
 	RequestSchema := method.GetRequestSchema()
@@ -52,16 +51,21 @@ func (rc *RpcCore) RpcMethodDataInit(method rpcInterface.Method, jsonMap map[str
 	for fieldName := range RequestSchema {
 
 		jsonFieldValue, ok := jsonMap[ RequestSchema[fieldName].Field ]
-		log.Print(ok)
+		if !ok {
+			return NewRpcError("VALIDATE_ERROR", "not require field: " + RequestSchema[fieldName].Field, nil)
+		}
 
 		res3, err3 := Reform.RunReformItem( RequestSchema[fieldName].Type, jsonFieldValue)
 		if err3 != nil {
-			log.Println("ERROR ReformNew.RunReformItem", err3)
+			//log.Println("ERROR ReformNew.RunReformItem", err3)
+			return NewRpcError("VALIDATE_ERROR", err3.Error(), nil)
 		}
 
 		strSet := reflect.ValueOf(res3)
 		dataStructLink.FieldByName(fieldName).Set(strSet)
 	}
+
+	return nil
 }
 
 
@@ -92,7 +96,13 @@ func (rc *RpcCore) TestJsonMethodByRpcRequest(Json string, rReq rpcInterface.Req
 	// вытаскиваем схему валидации данных requestSchema
 
 	// валидация данных и DTO
-	rc.RpcMethodDataInit(rpcMethod, jsonMap)
+	errReform := rc.RpcMethodDataInit(rpcMethod, jsonMap)
+	if errReform != nil {
+		rpcResponse := NewRpcResponse()
+		rpcResponse.SetError(errReform)
+		return rpcResponse
+	}
+
 
 	// init
 	rpcMethod.SetResponse(NewRpcResponse())

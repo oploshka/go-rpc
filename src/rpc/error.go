@@ -2,7 +2,7 @@ package rpc
 
 import "project-my-test/src/rpc/rpcInterface"
 
-//
+// TODO rename
 type error struct {
 	code    string
 	message string
@@ -32,7 +32,11 @@ func (rE *error) SetData(value interface{}) rpcInterface.Error {
 	return rE
 }
 
-func NewRpcError() rpcInterface.Error {
+func NewRpcError(code string, message string, data interface{}) rpcInterface.Error {
 	// code = ERROR_DEFAULT
-	return new(error)
+	return &error{
+		code	: code,
+		message	: message,
+		data	: data,
+	}
 }

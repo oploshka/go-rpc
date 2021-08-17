@@ -65,7 +65,7 @@ func NewRpcResponse() rpcInterface.Response {
 	rRes := new(response)
 	rRes.rpcRequest = NewRpcRequest()
 	rRes.data = make(map[string]interface{})
-	rRes.error = NewRpcError()
+	rRes.error = NewRpcError("ERROR_DEFAULT", "", nil)
 	return rRes
 
 	// $this->RpcRequest = $arr['RpcRequest'] ?? new RpcRequest(['methodName' => 'UNDEFINED']);
