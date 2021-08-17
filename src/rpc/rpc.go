@@ -1,14 +1,15 @@
-package RpcOld
+package rpc
 
 import (
 	"encoding/json"
 	"log"
+	"project-my-test/src/rpc/rpcInterface"
 	"project-my-test/testHelper/reformHelper"
 	"reflect"
 )
 
 // получить rpcRequest, вернуть rpcResponse
-func (rc *RpcCore) RunMethodByRpcRequest(rReq *RpcRequest) *RpcResponse {
+func (rc *RpcCore) RunMethodByRpcRequest(rReq *request) rpcInterface.Response {
 	// # склеиваем в 1
 	// # _runMethod
 	// # _runMethodProcessing
@@ -37,7 +38,7 @@ func (rc *RpcCore) RunMethodByRpcRequest(rReq *RpcRequest) *RpcResponse {
 // RpcMethodDataInit
 // это магический метод DTO входных данных - который закидывает данные внутрь метода
 // данный метод находится в процессе разработки (нет отлова ошибок и доп проверок)
-func (rc *RpcCore) RpcMethodDataInit(method iMethod, jsonMap map[string]json.RawMessage) {
+func (rc *RpcCore) RpcMethodDataInit(method rpcInterface.Method, jsonMap map[string]json.RawMessage) {
 
 	// get method schema
 	RequestSchema := method.GetRequestSchema()
@@ -64,7 +65,7 @@ func (rc *RpcCore) RpcMethodDataInit(method iMethod, jsonMap map[string]json.Raw
 }
 
 
-func (rc *RpcCore) TestJsonMethodByRpcRequest(Json string, rReq *RpcRequest) *RpcResponse {
+func (rc *RpcCore) TestJsonMethodByRpcRequest(Json string, rReq rpcInterface.Request) rpcInterface.Response {
 
 	// load json
 	var jsonMap map[string]json.RawMessage
@@ -72,7 +73,8 @@ func (rc *RpcCore) TestJsonMethodByRpcRequest(Json string, rReq *RpcRequest) *Rp
 	jsonByte := []byte(Json)
 	err := json.Unmarshal(jsonByte, &jsonMap)
 	if err != nil {
-		return NewRpcResponse()
+		res :=  NewRpcResponse()
+		return res
 	}
 
 	// # склеиваем в 1

@@ -1,10 +1,12 @@
-package RpcOld
+package rpc
+
+import "project-my-test/src/rpc/rpcInterface"
 
 type RpcMethod struct {
-	Response *RpcResponse
+	Response rpcInterface.Response
 }
 
-func (rMeth *RpcMethod) SetResponse(rRes *RpcResponse) {
+func (rMeth *RpcMethod) SetResponse(rRes rpcInterface.Response) {
 	rMeth.Response = rRes
 }
 

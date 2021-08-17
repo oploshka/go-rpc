@@ -2,7 +2,7 @@ package rpc
 
 import (
 	"github.com/stretchr/testify/assert"
-	"project-my-test/src/Rpc"
+	"project-my-test/src/rpc"
 	"testing"
 )
 
@@ -11,7 +11,7 @@ func TestRpcRequest_correctWork(t *testing.T) {
 
 	//t.Run("test1", func(t *testing.T) {
 	//
-	rpcRequest := Rpc.NewRpcRequest()
+	rpcRequest := rpc.NewRpcRequest()
 
 	assert.Equal(rpcRequest.GetRequestId(), "", "rpcRequest error")
 	assert.Equal(rpcRequest.GetMethodName(), "", "rpcRequest error")

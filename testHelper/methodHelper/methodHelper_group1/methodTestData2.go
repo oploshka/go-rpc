@@ -1,20 +1,22 @@
 package methodHelper_group1
 
 import (
-	"project-my-test/src/Rpc"
+	"project-my-test/src/rpc"
+	"project-my-test/src/rpc/rpcInterface"
+	"project-my-test/src/rpc/rpcStruct"
 )
 
 type MethodTestData2 struct {
-	Rpc.RpcMethod
+	rpc.RpcMethod
 	Data struct{}
 }
 
-func (r *MethodTestData2) GetRequestSchema() map[string]Rpc.RpcReformSchema {
-	return make(map[string]Rpc.RpcReformSchema)
+func (r *MethodTestData2) GetRequestSchema() map[string]rpcStruct.ReformSchema {
+	return make(map[string]rpcStruct.ReformSchema)
 }
 
 
-func (r *MethodTestData2) Run() *Rpc.RpcResponse {
+func (r *MethodTestData2) Run() rpcInterface.Response {
 	r.Response.SetData("test::string", "string - MethodTestData2.go")
 	r.Response.SetData("test::int", 222)
 	return r.Response

@@ -1,6 +1,8 @@
-package RpcStructure
+package rpcStructure
 
-import "project-my-test/src/Rpc"
+import (
+	"project-my-test/src/rpc/rpcInterface"
+)
 
 /*
 {
@@ -38,7 +40,7 @@ type MultipartJsonRpcResponse_response_error struct {
 	Data    interface{} `json:"data"`
 }
 
-func MultipartJsonRpcResponseEncode(rResp *RpcOld.RpcResponse) *MultipartJsonRpcResponse {
+func MultipartJsonRpcResponseEncode(rResp rpcInterface.Response) *MultipartJsonRpcResponse {
 
 	resp := MultipartJsonRpcResponse{
 		Specification:        "multipart-json-rpc",

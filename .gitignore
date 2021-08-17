@@ -7,8 +7,6 @@ vendor
 #
 bin/*
 !bin/.gitkeep
-readme-help.md
-readme-wtf.md
-src/RpcOld/Plugin/Logger.php
-src/RpcOld/Plugin/RpcFormatter/Json.php
-src/RpcOld/Plugin/RpcRequestLoad/Post_MultipartFormData_Field.php
+
+__*.md
+__*.php

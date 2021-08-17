@@ -1,19 +1,21 @@
-package RpcOld
+package rpc
+
+import "project-my-test/src/rpc/rpcInterface"
 
 //
-type RpcResponse struct {
-	rpcRequest *RpcRequest
+type response struct {
+	rpcRequest rpcInterface.Request
 	data       map[string]interface{}
-	error      *rpcError
+	error      rpcInterface.Error
 }
 
-func (rRes *RpcResponse) GetRpcRequest() *RpcRequest {
+func (rRes *response) GetRpcRequest() rpcInterface.Request {
 	return rRes.rpcRequest
 }
-func (rRes *RpcResponse) GetData() map[string]interface{} {
+func (rRes *response) GetData() map[string]interface{} {
 	return rRes.data
 }
-func (rRes *RpcResponse) GetError() *rpcError {
+func (rRes *response) GetError() rpcInterface.Error {
 	return rRes.error
 }
 
@@ -31,12 +33,12 @@ func (rRes *RpcResponse) GetError() *rpcError {
 //}
 
 // setters
-func (rRes *RpcResponse) SetData(key string, value interface{}) *RpcResponse {
+func (rRes *response) SetData(key string, value interface{}) rpcInterface.Response {
 	rRes.data[key] = value
 	return rRes
 }
 
-func (rRes *RpcResponse) SetError(error *rpcError) *RpcResponse {
+func (rRes *response) SetError(error rpcInterface.Error) rpcInterface.Response {
 	rRes.error = error
 	return rRes
 }
@@ -58,9 +60,9 @@ func (rRes *RpcResponse) SetError(error *rpcError) *RpcResponse {
 //throw new \Oploshka\RpcException\MethodEndException('');
 //}
 
-func NewRpcResponse() *RpcResponse {
+func NewRpcResponse() rpcInterface.Response {
 
-	rRes := new(RpcResponse)
+	rRes := new(response)
 	rRes.rpcRequest = NewRpcRequest()
 	rRes.data = make(map[string]interface{})
 	rRes.error = NewRpcError()

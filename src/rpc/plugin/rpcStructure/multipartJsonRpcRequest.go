@@ -1,4 +1,4 @@
-package RpcStructure
+package rpcStructure
 
 /*
 {

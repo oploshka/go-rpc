@@ -1,12 +1,14 @@
 package methodHelper_group1
 
 import (
-	"project-my-test/src/Rpc"
+	"project-my-test/src/rpc"
+	"project-my-test/src/rpc/rpcInterface"
+	"project-my-test/src/rpc/rpcStruct"
 	"project-my-test/testHelper/reformHelper"
 )
 
 type MethodTestData1 struct {
-	Rpc.RpcMethod
+	rpc.RpcMethod
 	Data struct{
 		TestUserString 	*string
 		TestUserInt 	*int
@@ -15,21 +17,21 @@ type MethodTestData1 struct {
 	//Logger *iLogger
 }
 
-func (r *MethodTestData1) GetRequestSchema() map[string]Rpc.RpcReformSchema {
-	rs := make(map[string]Rpc.RpcReformSchema)
+func (r *MethodTestData1) GetRequestSchema() map[string]rpcStruct.ReformSchema {
+	rs := make(map[string]rpcStruct.ReformSchema)
 
-	rs["TestUserString"] = Rpc.RpcReformSchema{
+	rs["TestUserString"] = rpcStruct.ReformSchema{
 		Type: reformHelper.REFORM_STRING,
 		Field: "full_name",
 	}
-	rs["TestUserInt"] = Rpc.RpcReformSchema{
+	rs["TestUserInt"] = rpcStruct.ReformSchema{
 		Type: reformHelper.REFORM_INTEGER,
 		Field: "number",
 	}
 	return rs
 }
 
-func (r *MethodTestData1) Run() *Rpc.RpcResponse {
+func (r *MethodTestData1) Run() rpcInterface.Response {
 	r.Response.SetData("test::string", "MethodTestData1.go string")
 	r.Response.SetData("test::json::full_name"	, r.Data.TestUserString)
 	r.Response.SetData("test::json::number"		, r.Data.TestUserInt)

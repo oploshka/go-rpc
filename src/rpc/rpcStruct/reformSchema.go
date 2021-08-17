@@ -1,7 +1,7 @@
-package RpcOld
+package rpcStruct
 
 
-type RpcReformSchema struct {
+type ReformSchema struct {
 	Type	string
 	Field 	string
 	//Req   		bool

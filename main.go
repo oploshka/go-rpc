@@ -4,35 +4,28 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"project-my-test/src/Rpc"
-	"project-my-test/src/Rpc/Plugin/RpcStructure"
-	"project-my-test/test/Helper/Method"
-	"project-my-test/test/Helper/Method/MethodTestData"
+	"project-my-test/src/rpc"
+	"project-my-test/src/rpc/plugin/rpcStructure"
+	"project-my-test/testHelper/rpcHelper"
 )
 
 func main() {
 
-	rpcClient := Rpc.NewRpcCore()
-	rpcMethodStore := rpcClient.GetRpcMethodStore()
-	//
-	rpcMethodStore.Add("testMethod", new(Method.ReturnRequestSchemaData), "")
-	rpcMethodStore.Add("MethodTestData1", new(MethodTestData.MethodTestData1), "TestData")
-	rpcMethodStore.Add("MethodTestData2", new(MethodTestData.MethodTestData2), "TestData")
-	rpcMethodStore.Add("MethodTestData3", new(MethodTestData.MethodTestData3), "TestData")
+	rpcClient := rpcHelper.CreateTestRpc()
 
 	//
 	//
 	//
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		//
-		rpcRequestTestMethod := Rpc.NewRpcRequest()
+		rpcRequestTestMethod := rpc.NewRpcRequest()
 		rpcRequestTestMethod.SetMethodName("MethodTestData1")
 		//
 		rpcResponse := rpcClient.TestJsonMethodByRpcRequest("{\"full_name\": \"Andrey\", \"number\": 17 }", rpcRequestTestMethod)
 
 		// TODO: временное решение
 		log.Println("=================================")
-		responseStruct := RpcStructure.MultipartJsonRpcResponseEncode(rpcResponse)
+		responseStruct := rpcStructure.MultipartJsonRpcResponseEncode(rpcResponse)
 
 		js, err := json.Marshal(responseStruct)
 		if err != nil {
@@ -46,7 +39,7 @@ func main() {
 	//
 	http.HandleFunc("/1", func(w http.ResponseWriter, r *http.Request) {
 		//
-		rpcRequestTestMethod := Rpc.NewRpcRequest()
+		rpcRequestTestMethod := rpc.NewRpcRequest()
 		rpcRequestTestMethod.SetMethodName("MethodTestData1")
 		//
 		rpcResponse := rpcClient.RunMethodByRpcRequest(rpcRequestTestMethod)
@@ -67,7 +60,7 @@ func main() {
 	//
 	http.HandleFunc("/2", func(w http.ResponseWriter, r *http.Request) {
 		//
-		rpcRequestTestMethod := Rpc.NewRpcRequest()
+		rpcRequestTestMethod := rpc.NewRpcRequest()
 		rpcRequestTestMethod.SetMethodName("MethodTestData2")
 		//
 		rpcResponse := rpcClient.RunMethodByRpcRequest(rpcRequestTestMethod)

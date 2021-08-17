@@ -6,8 +6,9 @@ import (
 	"github.com/oleiade/reflections"
 	"github.com/stretchr/testify/assert"
 	"log"
-	"project-my-test/src/Rpc"
-	"project-my-test/test/Helper/Method"
+	"project-my-test/src/rpc/rpcInterface"
+	"project-my-test/src/rpc/rpcStruct"
+	"project-my-test/testHelper/methodHelper/methodHelper_group2"
 	"project-my-test/testHelper/reformHelper"
 	"reflect"
 	"testing"
@@ -29,13 +30,13 @@ func TestReform_112a(t *testing.T) {
 	assert.Nil(err)
 
 	// get method schema
-	rpcMethod := Method.ReturnRequestSchemaData{}
+	rpcMethod := methodHelper_group2.ReturnRequestSchemaData{}
 	RequestSchema := rpcMethod.GetRequestSchema()
 
 	// schema run
 	dataStructLink := &rpcMethod.Data
 
-	keys := make([]Rpc.RpcReformSchema, 0, len(RequestSchema))
+	keys := make([]rpcStruct.ReformSchema, 0, len(RequestSchema))
 	for fieldName := range RequestSchema {
 		keys = append(keys, RequestSchema[fieldName])
 
@@ -57,7 +58,7 @@ func TestReform_112a(t *testing.T) {
 }
 
 
-func RpcMethodDataInit(method Rpc.IMethod, jsonMap map[string]json.RawMessage) {
+func RpcMethodDataInit(method rpcInterface.Method, jsonMap map[string]json.RawMessage) {
 	// get method schema
 	RequestSchema := method.GetRequestSchema()
 
@@ -115,7 +116,7 @@ func TestReform_1312x(t *testing.T) {
 	assert.Nil(err)
 
 	// get method schema
-	rpcMethod := Method.ReturnRequestSchemaData{}
+	rpcMethod := methodHelper_group2.ReturnRequestSchemaData{}
 
 	//rpcMethod.GetRequestSchema()
 	RpcMethodDataInit(&rpcMethod, jsonMap)

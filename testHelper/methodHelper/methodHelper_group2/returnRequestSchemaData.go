@@ -1,27 +1,29 @@
 package methodHelper_group2
 
 import (
-	"project-my-test/src/Rpc"
+	"project-my-test/src/rpc"
+	"project-my-test/src/rpc/rpcInterface"
+	"project-my-test/src/rpc/rpcStruct"
 	"project-my-test/testHelper/reformHelper"
 )
 
 
 type ReturnRequestSchemaData struct {
-	Rpc.RpcMethod
+	rpc.RpcMethod
 	Data struct{
 		Name  *string
 		Email *string
 	}
 }
 
-func (r *ReturnRequestSchemaData) GetRequestSchema() map[string]Rpc.RpcReformSchema {
-	rs := make(map[string]Rpc.RpcReformSchema)
+func (r *ReturnRequestSchemaData) GetRequestSchema() map[string]rpcStruct.ReformSchema {
+	rs := make(map[string]rpcStruct.ReformSchema)
 
-	rs["Name"] = Rpc.RpcReformSchema{
+	rs["Name"] = rpcStruct.ReformSchema{
 		Type: reformHelper.REFORM_STRING,
 		Field: "name", // TODO: FieldLoad and FieldReturn
 	}
-	rs["Email"] = Rpc.RpcReformSchema{
+	rs["Email"] = rpcStruct.ReformSchema{
 		Type: reformHelper.REFORM_STRING,
 		Field: "email", // TODO: FieldLoad and FieldReturn
 	}
@@ -31,7 +33,7 @@ func (r *ReturnRequestSchemaData) GetRequestSchema() map[string]Rpc.RpcReformSch
 
 
 
-func (r *ReturnRequestSchemaData) Run() *Rpc.RpcResponse {
+func (r *ReturnRequestSchemaData) Run() rpcInterface.Response {
 	r.Response.SetData("test::string", "string")
 	r.Response.SetData("test::int", 20)
 	r.Response.GetError().SetCode("ERROR")

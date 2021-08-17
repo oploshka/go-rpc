@@ -1,9 +1,9 @@
-package RpcOld
+package rpc
 
 type RpcCore struct {
 	// # di                    string // di container
 	// # reform                string // validate and convert data  [ReformDebug]
-	rpcMethodStore *rpcMethodStore // method store
+	rpcMethodStore *methodStore // method store
 
 	//
 	// # rpcRequestLoad        string // Post_MultipartFormData_Field - вытаскиваем данные из http запроса
@@ -13,13 +13,13 @@ type RpcCore struct {
 	// # rpcResponseStructure  string // создаем структуру для отправки данных
 }
 
-func (rC *RpcCore) GetRpcMethodStore() *rpcMethodStore {
+func (rC *RpcCore) GetRpcMethodStore() *methodStore {
 	return rC.rpcMethodStore
 }
 
 func NewRpcCore() *RpcCore {
 	rC := new(RpcCore)
-	rC.rpcMethodStore = NewRpcMethodStore()
+	rC.rpcMethodStore = NewMethodStore()
 	return rC
 }
 

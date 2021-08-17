@@ -2,14 +2,14 @@ package rpc
 
 import (
 	"github.com/stretchr/testify/assert"
-	"project-my-test/src/Rpc"
+	"project-my-test/src/rpc"
 	"project-my-test/testHelper/methodHelper/methodHelper_group2"
 	"testing"
 )
 
 func TestRpc_correctWork(t *testing.T) {
 	assert := assert.New(t)
-	rpcClient := Rpc.NewRpcCore()
+	rpcClient := rpc.NewRpcCore()
 
 	_tMethodName1 := "test2"
 	_tMethodClass1 := new(methodHelper_group2.ReturnRequestSchemaData)
@@ -30,7 +30,7 @@ func TestRpc_correctWork(t *testing.T) {
 	_, ok2 := methodStore2.GetMethodInfo("a124sz1dcssa")
 	assert.NotEqual(ok2, true, "MethodInfo test - empty")
 
-	rpcRequest := Rpc.NewRpcRequest()
+	rpcRequest := rpc.NewRpcRequest()
 	rpcRequest.SetMethodName(_tMethodName1)
 
 	rpcResponse := rpcClient.RunMethodByRpcRequest(rpcRequest)
