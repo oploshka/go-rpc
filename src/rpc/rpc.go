@@ -89,7 +89,13 @@ func (rc *RpcCore) TestJsonMethodByRpcRequest(Json string, rReq rpcInterface.Req
 	methodName := rReq.GetMethodName()
 	methodInfo, ok := rc.rpcMethodStore.GetMethodInfo(methodName)
 	if !ok {
-		return NewRpcResponse()
+		rpcResponse := NewRpcResponse()
+		rpcResponse.SetError(NewRpcError(
+			"ERROR_METHOD_NOT_FOUND",
+			"method '" + methodName + "' undefined",
+			nil,
+		))
+		return rpcResponse
 	}
 	rpcMethod := methodInfo.GetClass()
 

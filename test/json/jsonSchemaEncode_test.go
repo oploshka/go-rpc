@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/stretchr/testify/assert"
 	"log"
+	"net/url"
 	"reflect"
 	"testing"
 )
@@ -81,7 +82,26 @@ func TestJson_correctWork(t *testing.T) {
 		log.Println(k)
 	}
 	log.Print(objmap)
+}
 
 
+func TestJson_url_params_to_json(t *testing.T) {
+	assert := assert.New(t)
 
+	u, err := url.Parse("https://example.org/?method=MethodTestData2&a=1&a=2&b=&=3&&&&")
+	if err != nil {
+		log.Fatal(err)
+	}
+	q := u.Query()
+
+	assert.NotNil(q)
+
+	jsonByte, _ := json.Marshal(q)
+	jsonString := string(jsonByte)
+	assert.NotNil(jsonString)
+
+	keys, ok := q["method"]
+	if !ok || len(keys[0]) < 1 {
+		log.Println("Url Param 'method' is missing")
+	}
 }

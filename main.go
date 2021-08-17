@@ -17,14 +17,28 @@ func main() {
 	//
 	//
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+
+		// temp code for method test by get params
+		getMap := r.URL.Query()
+		jsonByte, _ := json.Marshal(getMap)
+		jsonString := string(jsonByte)
+
+		methodName := "MethodTestData1"
+		keys, ok := getMap["method"]
+		if !ok || len(keys[0]) < 1 {
+			log.Println("Url Param 'method' is missing")
+		} else {
+			methodName = keys[0]
+		}
+
 		//
 		rpcRequestTestMethod := rpc.NewRpcRequest()
-		rpcRequestTestMethod.SetMethodName("MethodTestData1")
+		rpcRequestTestMethod.SetMethodName(methodName)
 		//
-		rpcResponse := rpcClient.TestJsonMethodByRpcRequest("{\"full_name\": \"Andrey\", \"number\": 17, \"bool2\": true  }", rpcRequestTestMethod)
+		rpcResponse := rpcClient.TestJsonMethodByRpcRequest(jsonString, rpcRequestTestMethod)
 
 		// TODO: временное решение
-		log.Println("=================================")
+		// log.Println("=================================")
 		responseStruct := rpcStructure.MultipartJsonRpcResponseEncode(rpcResponse)
 
 		js, err := json.Marshal(responseStruct)
@@ -36,47 +50,10 @@ func main() {
 		w.Header().Set("Content-Type", "application/json")
 		w.Write(js)
 	})
-	//
-	http.HandleFunc("/1", func(w http.ResponseWriter, r *http.Request) {
-		//
-		rpcRequestTestMethod := rpc.NewRpcRequest()
-		rpcRequestTestMethod.SetMethodName("MethodTestData1")
-		//
-		rpcResponse := rpcClient.RunMethodByRpcRequest(rpcRequestTestMethod)
 
-		// TODO: временное решение
-		log.Println("=================================")
-		log.Println(rpcResponse)
-
-		js, err := json.Marshal(rpcResponse.GetData())
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-
-		w.Header().Set("Content-Type", "application/json")
-		w.Write(js)
-	})
-	//
-	http.HandleFunc("/2", func(w http.ResponseWriter, r *http.Request) {
-		//
-		rpcRequestTestMethod := rpc.NewRpcRequest()
-		rpcRequestTestMethod.SetMethodName("MethodTestData2")
-		//
-		rpcResponse := rpcClient.RunMethodByRpcRequest(rpcRequestTestMethod)
-
-		// TODO: временное решение
-		log.Println("=================================")
-		log.Println(rpcResponse)
-
-		js, err := json.Marshal(rpcResponse.GetData())
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-
-		w.Header().Set("Content-Type", "application/json")
-		w.Write(js)
+	// browser favicon fix
+	http.HandleFunc("/favicon.ico", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte(""))
 	})
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
