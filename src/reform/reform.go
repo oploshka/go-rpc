@@ -14,6 +14,7 @@ func (r *reform) AddReformItem(name string, item reformInterface.ReformItem ) {
 	r.store[name] = item
 }
 
+// TODO: fix error => rpcIntarface.error
 func (r *reform) RunReformItem(name string, jsonFieldValue json.RawMessage) (interface{}, error) {
 	val, ok := r.store[name]
 	if !ok {

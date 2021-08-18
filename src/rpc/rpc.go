@@ -78,6 +78,11 @@ func (rc *RpcCore) TestJsonMethodByRpcRequest(Json string, rReq rpcInterface.Req
 	err := json.Unmarshal(jsonByte, &jsonMap)
 	if err != nil {
 		res :=  NewRpcResponse()
+		res.SetError(NewRpcError(
+			"ERROR_JSON_DECODE",
+			err.Error(),
+			err,
+		))
 		return res
 	}
 

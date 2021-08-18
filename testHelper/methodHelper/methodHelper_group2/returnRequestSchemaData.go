@@ -22,6 +22,9 @@ func (r *ReturnRequestSchemaData) GetRequestSchema() map[string]rpcStruct.Reform
 	rs["Name"] = rpcStruct.ReformSchema{
 		Type: reformHelper.REFORM_STRING,
 		Field: "name", // TODO: FieldLoad and FieldReturn
+		Default: func() interface{} {
+			return "UserNameDefault"
+		},
 	}
 	rs["Email"] = rpcStruct.ReformSchema{
 		Type: reformHelper.REFORM_STRING,
