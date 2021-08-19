@@ -69,7 +69,15 @@ func MultipartJsonRpcResponseEncode(rResp rpcInterface.Response) *MultipartJsonR
 func MultipartJsonRpcResponseDecode(mjr *MultipartJsonRpcResponse) rpcInterface.Response{
 	//rpcError    := rpc.NewRpcError(mjr.Response.Error.Code, mjr.Response.Error.Message, mjr.Response.Error.Data )
 	//rpcRequest  := rpc.NewRpcRequest()
-	rpcResponse := rpc.NewRpcResponse()
+	rpcResponse := rpc.NewRpcResponse(
+		rpc.NewRpcRequest(
+			"",     	// requestId - string vs intarface{}
+			"", 	 	// method name
+			nil, 			// data   map[string]interface{},
+			mjr.Language,
+			mjr.Version,
+		),
+	)
 
 	return rpcResponse
 }

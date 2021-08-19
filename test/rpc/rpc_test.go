@@ -30,7 +30,7 @@ func TestRpc_correctWork(t *testing.T) {
 	_, ok2 := methodStore2.GetMethodInfo("a124sz1dcssa")
 	assert.NotEqual(ok2, true, "MethodInfo test - empty")
 
-	rpcRequest := rpc.NewRpcRequest()
+	rpcRequest := rpc.NewRpcRequest("", "", nil, "", "")
 	rpcRequest.SetMethodName(_tMethodName1)
 
 	rpcResponse := rpcClient.RunMethodByRpcRequest(rpcRequest)

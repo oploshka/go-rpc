@@ -29,6 +29,20 @@ func (rReq *request) SetMethodName(methodName string) {
 	rReq.methodName = methodName
 }
 
-func NewRpcRequest() *request {
-	return new(request)
+func NewRpcRequest(
+		requestId  string,
+		methodName string,
+		data       map[string]interface{},
+		language   string,
+		version    string,
+	) *request {
+
+	rpcRequest := request{
+		requestId: requestId,
+		methodName: methodName,
+		data: data,
+		language: language,
+		version: version,
+	}
+	return &rpcRequest
 }

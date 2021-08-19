@@ -60,10 +60,10 @@ func (rRes *response) SetError(error rpcInterface.Error) rpcInterface.Response {
 //throw new \Oploshka\RpcException\MethodEndException('');
 //}
 
-func NewRpcResponse() rpcInterface.Response {
+func NewRpcResponse(rpcRequest rpcInterface.Request) rpcInterface.Response {
 
 	rRes := new(response)
-	rRes.rpcRequest = NewRpcRequest()
+	rRes.rpcRequest = rpcRequest
 	rRes.data = make(map[string]interface{})
 	rRes.error = NewRpcError("ERROR_DEFAULT", "", nil)
 	return rRes

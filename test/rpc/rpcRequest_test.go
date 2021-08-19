@@ -11,11 +11,11 @@ func TestRpcRequest_correctWork(t *testing.T) {
 
 	//t.Run("test1", func(t *testing.T) {
 	//
-	rpcRequest := rpc.NewRpcRequest()
+	rpcRequest := rpc.NewRpcRequest("", "", nil, "", "")
 
 	assert.Equal(rpcRequest.GetRequestId(), "", "rpcRequest error")
 	assert.Equal(rpcRequest.GetMethodName(), "", "rpcRequest error")
-	assert.Equal(rpcRequest.GetData(), "", "rpcRequest error")
+	assert.Equal(rpcRequest.GetData(), nil, "rpcRequest error")
 	assert.Equal(rpcRequest.GetLanguage(), "", "rpcRequest error")
 	assert.Equal(rpcRequest.GetVersion(), "", "rpcRequest error")
 	//})

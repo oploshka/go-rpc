@@ -22,7 +22,7 @@ func TestRpcMethodStorage_correctWork(t *testing.T) {
 	assert.Equal(ok, true, "MethodInfo test2 - empty")
 
 	methodClass := methodInfo.GetClass()
-	rpcResp := rpc.NewRpcResponse()
+	rpcResp := rpc.NewRpcResponse(rpc.NewRpcRequest("", "", nil, "", ""))
 	methodClass.SetResponse(rpcResp)
 	assert.NotEmpty(methodClass)
 

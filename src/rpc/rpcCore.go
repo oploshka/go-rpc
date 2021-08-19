@@ -13,8 +13,8 @@ type RpcCore struct {
 	// # rpcResponseStructure  string // создаем структуру для отправки данных
 }
 
-func (rC *RpcCore) GetRpcMethodStore() *methodStore {
-	return rC.rpcMethodStore
+func (rc *RpcCore) GetRpcMethodStore() *methodStore {
+	return rc.rpcMethodStore
 }
 
 func NewRpcCore() *RpcCore {

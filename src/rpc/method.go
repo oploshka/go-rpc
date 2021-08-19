@@ -1,9 +1,17 @@
 package rpc
 
-import "project-my-test/src/rpc/rpcInterface"
+import (
+	"project-my-test/src/rpc/rpcInterface"
+	"project-my-test/src/rpc/rpcStruct"
+)
 
 type RpcMethod struct {
 	Response rpcInterface.Response
+	Data struct{}
+}
+
+func (r *RpcMethod) GetRequestSchema() map[string]rpcStruct.ReformSchema {
+	return make(map[string]rpcStruct.ReformSchema)
 }
 
 func (rMeth *RpcMethod) SetResponse(rRes rpcInterface.Response) {

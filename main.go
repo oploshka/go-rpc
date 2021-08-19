@@ -15,6 +15,7 @@ func main() {
 
 	rpcClient := rpcHelper.CreateTestRpc()
 
+
 	//
 	//
 	//
@@ -36,7 +37,7 @@ func main() {
 		rpcRequestLoader := rpcRequestLoad.NewPostMultipartFormDataField("data")
 		jsonString, errLoad := rpcRequestLoader.Load(r)
 		if errLoad != nil {
-			rpcResponse := rpc.NewRpcResponse()
+			rpcResponse := rpc.NewRpcResponse(rpc.NewRpcRequest("", "", nil, "", ""))
 			rpcResponse.SetError(errLoad)
 
 			responseStruct := rpcStructure.MultipartJsonRpcResponseEncode(rpcResponse)
@@ -53,7 +54,7 @@ func main() {
 		}
 
 		//
-		rpcRequestTestMethod := rpc.NewRpcRequest()
+		rpcRequestTestMethod := rpc.NewRpcRequest("", "", nil, "", "")
 		rpcRequestTestMethod.SetMethodName(methodName)
 		//
 		rpcResponse := rpcClient.TestJsonMethodByRpcRequest(*jsonString, rpcRequestTestMethod)

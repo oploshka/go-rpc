@@ -8,25 +8,46 @@ import (
 )
 
 // получить rpcRequest, вернуть rpcResponse
-func (rc *RpcCore) RunMethodByRpcRequest(rReq *request) rpcInterface.Response {
+func (rc *RpcCore) RunMethodByRpcRequest(rpcRequest rpcInterface.Request) rpcInterface.Response {
 	// # склеиваем в 1
 	// # _runMethod
 	// # _runMethodProcessing
 
 	// подготавливаем среду для выполнения метода
-	methodName := rReq.GetMethodName()
+	methodName := rpcRequest.GetMethodName()
 	methodInfo, ok := rc.rpcMethodStore.GetMethodInfo(methodName)
 	if !ok {
-		return NewRpcResponse()
+		rpcResponse := NewRpcResponse(rpcRequest)
+		rpcResponse.SetError(NewRpcError(
+			"ERROR_METHOD_NOT_FOUND",
+			"method '" + methodName + "' undefined",
+			nil,
+		))
+		return rpcResponse
 	}
 	rpcMethod := methodInfo.GetClass()
 
 	// вытаскиваем схему валидации данных requestSchema
 
-	// валидация данных
+	requestData := rpcRequest.GetData()
+	requestDataJsonRaw := make(map[string]json.RawMessage)
+
+	for key, value := range requestData {
+		//strKey := fmt.Sprintf("%v", key)
+		//strValue := fmt.Sprintf("%v", value)
+		requestDataJsonRaw[key] = value.(json.RawMessage)
+	}
+
+	// валидация данных и DTO
+	errReform := rc.RpcMethodDataInit(rpcMethod, requestDataJsonRaw)
+	if errReform != nil {
+		rpcResponse := NewRpcResponse(rpcRequest)
+		rpcResponse.SetError(errReform)
+		return rpcResponse
+	}
 
 	// init
-	rpcMethod.SetResponse(NewRpcResponse())
+	rpcMethod.SetResponse(NewRpcResponse(rpcRequest))
 	// выполняем метод
 	rpcResponse := rpcMethod.Run()
 	// отдаем ответ
@@ -69,7 +90,7 @@ func (rc *RpcCore) RpcMethodDataInit(method rpcInterface.Method, jsonMap map[str
 }
 
 
-func (rc *RpcCore) TestJsonMethodByRpcRequest(Json string, rReq rpcInterface.Request) rpcInterface.Response {
+func (rc *RpcCore) TestJsonMethodByRpcRequest(Json string, rpcRequest rpcInterface.Request) rpcInterface.Response {
 
 	// load json
 	var jsonMap map[string]json.RawMessage
@@ -77,7 +98,7 @@ func (rc *RpcCore) TestJsonMethodByRpcRequest(Json string, rReq rpcInterface.Req
 	jsonByte := []byte(Json)
 	err := json.Unmarshal(jsonByte, &jsonMap)
 	if err != nil {
-		res :=  NewRpcResponse()
+		res :=  NewRpcResponse(rpcRequest)
 		res.SetError(NewRpcError(
 			"ERROR_JSON_DECODE",
 			err.Error(),
@@ -91,10 +112,10 @@ func (rc *RpcCore) TestJsonMethodByRpcRequest(Json string, rReq rpcInterface.Req
 	// # _runMethodProcessing
 
 	// подготавливаем среду для выполнения метода
-	methodName := rReq.GetMethodName()
+	methodName := rpcRequest.GetMethodName()
 	methodInfo, ok := rc.rpcMethodStore.GetMethodInfo(methodName)
 	if !ok {
-		rpcResponse := NewRpcResponse()
+		rpcResponse := NewRpcResponse(rpcRequest)
 		rpcResponse.SetError(NewRpcError(
 			"ERROR_METHOD_NOT_FOUND",
 			"method '" + methodName + "' undefined",
@@ -109,14 +130,14 @@ func (rc *RpcCore) TestJsonMethodByRpcRequest(Json string, rReq rpcInterface.Req
 	// валидация данных и DTO
 	errReform := rc.RpcMethodDataInit(rpcMethod, jsonMap)
 	if errReform != nil {
-		rpcResponse := NewRpcResponse()
+		rpcResponse := NewRpcResponse(rpcRequest)
 		rpcResponse.SetError(errReform)
 		return rpcResponse
 	}
 
 
 	// init
-	rpcMethod.SetResponse(NewRpcResponse())
+	rpcMethod.SetResponse(NewRpcResponse(rpcRequest))
 	// выполняем метод
 	rpcResponse := rpcMethod.Run()
 	// отдаем ответ
