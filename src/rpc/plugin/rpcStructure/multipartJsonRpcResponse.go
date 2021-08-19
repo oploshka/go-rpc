@@ -1,6 +1,7 @@
 package rpcStructure
 
 import (
+	"project-my-test/src/rpc"
 	"project-my-test/src/rpc/rpcInterface"
 )
 
@@ -62,30 +63,13 @@ func MultipartJsonRpcResponseEncode(rResp rpcInterface.Response) *MultipartJsonR
 	return &resp
 }
 
-///**
-// * @param array $arr
-// * @return \Oploshka\Rpc\RpcResponse
-// * @throws \Exception
-// */
-//func MultipartJsonRpcResponse_decode(value interface{}) *Rpc.RpcResponse {
-//    //if(
-//    //  !is_array($arr)
-//    //  || !isset( $arr['request'] )
-//    //  || !is_array($arr['request'])
-//    //  || !isset($arr['request']['name']) || !is_string($arr['request']['name'])
-//    //  || !isset($arr['request']['data']) || !is_array($arr['request']['data'])
-//    //){
-//    //  throw new \Oploshka\RpcException\ReformException('ERROR_RESPONSE_STRUCTURE_DECODE');
-//    //}
-//    //
-//    //return new \Oploshka\Rpc\RpcResponse([
-//    //  'requestId'   => $arr['request']['id'] ?? null,
-//    //  'methodName'  => $arr['request']['name'],
-//    //  'data'        => $arr['request']['data'],
-//    //  // TODO
-//    //  // 'language'    => $arr['request']['data'],
-//    //  // 'version'     => $arr['request']['data'],
-//    //]);
 //
-//  return Rpc.NewRpcResponse()
-//}
+// MultipartJsonRpcResponseDecode - это вспомогательный блок (нужен для удобства написания тестов)
+//
+func MultipartJsonRpcResponseDecode(mjr *MultipartJsonRpcResponse) rpcInterface.Response{
+	//rpcError    := rpc.NewRpcError(mjr.Response.Error.Code, mjr.Response.Error.Message, mjr.Response.Error.Data )
+	//rpcRequest  := rpc.NewRpcRequest()
+	rpcResponse := rpc.NewRpcResponse()
+
+	return rpcResponse
+}

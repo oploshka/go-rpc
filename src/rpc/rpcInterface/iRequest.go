@@ -3,7 +3,7 @@ package rpcInterface
 type Request interface {
 	GetRequestId() string
 	GetMethodName() string
-	GetData() string
+	GetData() map[string]interface{}
 	GetLanguage() string
 	GetVersion() string
 

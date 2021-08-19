@@ -4,7 +4,7 @@ package rpc
 type request struct {
 	requestId  string
 	methodName string
-	data       string
+	data       map[string]interface{}
 	language   string
 	version    string
 }
@@ -15,7 +15,7 @@ func (rReq *request) GetRequestId() string {
 func (rReq *request) GetMethodName() string {
 	return rReq.methodName
 }
-func (rReq *request) GetData() string {
+func (rReq *request) GetData() map[string]interface{} {
 	return rReq.data
 }
 func (rReq *request) GetLanguage() string {
