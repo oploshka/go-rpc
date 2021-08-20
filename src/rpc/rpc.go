@@ -2,8 +2,8 @@ package rpc
 
 import (
     "encoding/json"
-    "project-my-test/src/rpc/rpcInterface"
     "project-my-test/example/rpcApp/reform"
+    "project-my-test/src/rpc/rpcInterface"
     "reflect"
 )
 
@@ -87,58 +87,4 @@ func (rc *RpcCore) RpcMethodDataInit(method rpcInterface.Method, jsonMap map[str
     }
     
     return nil
-}
-
-func (rc *RpcCore) TestJsonMethodByRpcRequest(Json string, rpcRequest rpcInterface.Request) rpcInterface.Response {
-    
-    // load json
-    var jsonMap map[string]json.RawMessage
-    
-    jsonByte := []byte(Json)
-    err := json.Unmarshal(jsonByte, &jsonMap)
-    if err != nil {
-        res := NewRpcResponse(rpcRequest)
-        res.SetError(NewRpcError(
-            "ERROR_JSON_DECODE",
-            err.Error(),
-            err,
-        ))
-        return res
-    }
-    
-    // # склеиваем в 1
-    // # _runMethod
-    // # _runMethodProcessing
-    
-    // подготавливаем среду для выполнения метода
-    methodName := rpcRequest.GetMethodName()
-    methodInfo, ok := rc.rpcMethodStore.GetMethodInfo(methodName)
-    if !ok {
-        rpcResponse := NewRpcResponse(rpcRequest)
-        rpcResponse.SetError(NewRpcError(
-            "ERROR_METHOD_NOT_FOUND",
-            "method '"+methodName+"' undefined",
-            nil,
-        ))
-        return rpcResponse
-    }
-    rpcMethod := methodInfo.GetClass()
-    
-    // вытаскиваем схему валидации данных requestSchema
-    
-    // валидация данных и DTO
-    errReform := rc.RpcMethodDataInit(rpcMethod, jsonMap)
-    if errReform != nil {
-        rpcResponse := NewRpcResponse(rpcRequest)
-        rpcResponse.SetError(errReform)
-        return rpcResponse
-    }
-    
-    // init
-    rpcMethod.SetResponse(NewRpcResponse(rpcRequest))
-    // выполняем метод
-    rpcResponse := rpcMethod.Run()
-    // отдаем ответ
-    return rpcResponse
-    
 }

@@ -5,10 +5,10 @@ import (
     "io/ioutil"
     "log"
     "net/http"
+    "project-my-test/example/rpcApp"
     "project-my-test/src/rpc"
     "project-my-test/src/rpc/plugin/rpcRequestLoad"
     "project-my-test/src/rpc/plugin/rpcStructure"
-    "project-my-test/example/rpcApp"
 )
 
 func main() {
@@ -35,6 +35,7 @@ func main() {
         
         rpcRequestLoader := rpcRequestLoad.NewPostMultipartFormDataField("data")
         jsonString, errLoad := rpcRequestLoader.Load(r)
+        
         if errLoad != nil {
             rpcResponse := rpc.NewRpcResponse(rpc.NewRpcRequest("", "", nil, "", ""))
             rpcResponse.SetError(errLoad)
@@ -51,12 +52,29 @@ func main() {
             w.Write(js)
             return
         }
+    
+    
+        // load json
+        var jsonMap map[string]json.RawMessage
+    
+        jsonByte := []byte(*jsonString)
+        err := json.Unmarshal(jsonByte, &jsonMap)
+        if err != nil {
+            // res := NewRpcResponse(rpcRequest)
+            // res.SetError(NewRpcError(
+            //     "ERROR_JSON_DECODE",
+            //     err.Error(),
+            //     err,
+            // ))
+            // return res
+            w.Write([]byte("JSON ERROR 500"))
+            return
+        }
         
         //
-        rpcRequestTestMethod := rpc.NewRpcRequest("", "", nil, "", "")
-        rpcRequestTestMethod.SetMethodName(methodName)
+        rpcRequestTestMethod := rpc.NewRpcRequest("", methodName, jsonMap, "", "")
         //
-        rpcResponse := rpcClient.TestJsonMethodByRpcRequest(*jsonString, rpcRequestTestMethod)
+        rpcResponse := rpcClient.RunMethodByRpcRequest(rpcRequestTestMethod)
         
         // TODO: временное решение
         // log.Println("=================================")
