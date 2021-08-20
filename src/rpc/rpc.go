@@ -30,13 +30,14 @@ func (rc *RpcCore) RunMethodByRpcRequest(rpcRequest rpcInterface.Request) rpcInt
 	// вытаскиваем схему валидации данных requestSchema
 
 	requestData := rpcRequest.GetData()
-	requestDataJsonRaw := make(map[string]json.RawMessage)
-
-	for key, value := range requestData {
-		//strKey := fmt.Sprintf("%v", key)
-		//strValue := fmt.Sprintf("%v", value)
-		requestDataJsonRaw[key] = value.(json.RawMessage)
-	}
+	//requestDataJsonRaw := make(map[string]json.RawMessage)
+	//
+	//for key, value := range requestData {
+	//	//strKey := fmt.Sprintf("%v", key)
+	//	//strValue := fmt.Sprintf("%v", value)
+	//	requestDataJsonRaw[key] = value.(json.RawMessage)
+	//}
+	requestDataJsonRaw := requestData
 
 	// валидация данных и DTO
 	errReform := rc.RpcMethodDataInit(rpcMethod, requestDataJsonRaw)
