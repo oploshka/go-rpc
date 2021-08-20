@@ -1,10 +1,10 @@
 package methodHelper_group1
 
 import (
-	"project-my-test/src/rpc"
-	"project-my-test/src/rpc/rpcInterface"
-	"project-my-test/src/rpc/rpcStruct"
-	"project-my-test/testHelper/reformHelper"
+    "project-my-test/src/rpc"
+    "project-my-test/src/rpc/rpcInterface"
+    "project-my-test/src/rpc/rpcStruct"
+    "project-my-test/testHelper/reformHelper"
 )
 
 type MethodTestData1 struct {
@@ -19,21 +19,21 @@ type MethodTestData1 struct {
 }
 
 func (r *MethodTestData1) GetRequestSchema() map[string]rpcStruct.ReformSchema {
-	rs := make(map[string]rpcStruct.ReformSchema)
-
-	rs["TestUserString"] = rpcStruct.ReformSchema{
+    rs := make(map[string]rpcStruct.ReformSchema)
+    
+    rs["TestUserString"] = rpcStruct.ReformSchema{
         Type:  reformHelper.REFORM_STRING,
         Field: "full_name",
     }
-	rs["TestUserInt"] = rpcStruct.ReformSchema{
+    rs["TestUserInt"] = rpcStruct.ReformSchema{
         Type:  reformHelper.REFORM_INTEGER,
         Field: "number",
     }
-	rs["TestUserBool"] = rpcStruct.ReformSchema{
+    rs["TestUserBool"] = rpcStruct.ReformSchema{
         Type:  reformHelper.REFORM_BOOLEAN,
         Field: "bool",
     }
-	return rs
+    return rs
 }
 
 func (r *MethodTestData1) Run() rpcInterface.Response {

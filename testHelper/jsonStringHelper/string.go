@@ -1,7 +1,7 @@
 package jsonStringHelper
 
 func GetLargeNestingJsonString() string {
-	return `{
+    return `{
 "say":"Hello",
 "sendMsg":{
     "user":"ANisus",
