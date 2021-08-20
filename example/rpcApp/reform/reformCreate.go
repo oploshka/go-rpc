@@ -1,4 +1,4 @@
-package reformHelper
+package reform
 
 import (
     "project-my-test/src/reform"

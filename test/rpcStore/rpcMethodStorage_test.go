@@ -3,7 +3,7 @@ package rpcStore
 import (
     "github.com/stretchr/testify/assert"
     "project-my-test/src/rpc"
-    "project-my-test/testHelper/methodHelper/methodHelper_group1"
+    "project-my-test/example/rpcApp/method/methodGroup1"
     "testing"
 )
 
@@ -14,7 +14,7 @@ func TestRpcMethodStorage_correctWork(t *testing.T) {
     //
     methodStore := rpc.NewMethodStore()
     
-    methodStore.Add("test2", new(methodHelper_group1.MethodTestData3), "group2")
+    methodStore.Add("test2", new(methodGroup1.MethodTestData3), "group2")
     // methodStore.Add("test2", "class2", "group2")
     // methodStore.Add("test3", "class3", "group3")
     

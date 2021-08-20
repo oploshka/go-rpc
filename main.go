@@ -8,12 +8,12 @@ import (
     "project-my-test/src/rpc"
     "project-my-test/src/rpc/plugin/rpcRequestLoad"
     "project-my-test/src/rpc/plugin/rpcStructure"
-    "project-my-test/testHelper/rpcHelper"
+    "project-my-test/example/rpcApp"
 )
 
 func main() {
     
-    rpcClient := rpcHelper.CreateTestRpc()
+    rpcClient := rpcApp.CreateTestRpc()
     
     //
     //

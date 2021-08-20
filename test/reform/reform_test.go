@@ -8,8 +8,8 @@ import (
     "log"
     "project-my-test/src/rpc/rpcInterface"
     "project-my-test/src/rpc/rpcStruct"
-    "project-my-test/testHelper/methodHelper/methodHelper_group2"
-    "project-my-test/testHelper/reformHelper"
+    "project-my-test/example/rpcApp/method/methodGroup2"
+    "project-my-test/example/rpcApp/reform"
     "reflect"
     "testing"
 )
@@ -29,7 +29,7 @@ func TestReform_112a(t *testing.T) {
     assert.Nil(err)
     
     // get method schema
-    rpcMethod := methodHelper_group2.ReturnRequestSchemaData{}
+    rpcMethod := methodGroup2.MethodMyTest{}
     RequestSchema := rpcMethod.GetRequestSchema()
     
     // schema run
@@ -71,7 +71,7 @@ func RpcMethodDataInit(method rpcInterface.Method, jsonMap map[string]json.RawMe
     // structFieldValue := structValue.FieldByName("Name")
     // log.Print(structFieldValue)
     
-    var ReformNew = reformHelper.GetBaseReform()
+    var ReformNew = reform.GetBaseReform()
     
     for fieldName := range RequestSchema {
         
@@ -112,7 +112,7 @@ func TestReform_1312x(t *testing.T) {
     assert.Nil(err)
     
     // get method schema
-    rpcMethod := methodHelper_group2.ReturnRequestSchemaData{}
+    rpcMethod := methodGroup2.MethodMyTest{}
     
     // rpcMethod.GetRequestSchema()
     RpcMethodDataInit(&rpcMethod, jsonMap)

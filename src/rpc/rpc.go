@@ -3,7 +3,7 @@ package rpc
 import (
     "encoding/json"
     "project-my-test/src/rpc/rpcInterface"
-    "project-my-test/testHelper/reformHelper"
+    "project-my-test/example/rpcApp/reform"
     "reflect"
 )
 
@@ -67,7 +67,7 @@ func (rc *RpcCore) RpcMethodDataInit(method rpcInterface.Method, jsonMap map[str
     objValue := reflect.ValueOf(method).Elem()
     dataStructLink := objValue.FieldByName("Data")
     
-    var Reform = reformHelper.GetBaseReform()
+    var Reform = reform.GetBaseReform()
     
     for fieldName := range RequestSchema {
         

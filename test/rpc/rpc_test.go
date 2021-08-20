@@ -3,7 +3,7 @@ package rpc
 import (
     "github.com/stretchr/testify/assert"
     "project-my-test/src/rpc"
-    "project-my-test/testHelper/methodHelper/methodHelper_group2"
+    "project-my-test/example/rpcApp/method/methodGroup2"
     "testing"
 )
 
@@ -12,7 +12,7 @@ func TestRpc_correctWork(t *testing.T) {
     rpcClient := rpc.NewRpcCore()
     
     _tMethodName1 := "test2"
-    _tMethodClass1 := new(methodHelper_group2.ReturnRequestSchemaData)
+    _tMethodClass1 := new(methodGroup2.MethodMyTest)
     _tMethodGroup1 := "group2"
     
     methodStore1 := rpcClient.GetRpcMethodStore()
@@ -52,7 +52,7 @@ func TestRpc_correctWork2as(t *testing.T) {
     	}
     */
     //
-    // methodRun := &methodHelper_group2.ReturnRequestSchemaData{
+    // methodRun := &methodGroup2.MethodMyTest{
     //	Data: struct {
     //		Name  *string
     //		Email *string

@@ -5,14 +5,14 @@ import (
     "github.com/oleiade/reflections"
     "github.com/stretchr/testify/assert"
     "project-my-test/src/rpc/rpcInterface"
-    "project-my-test/testHelper/methodHelper/methodHelper_group2"
+    "project-my-test/example/rpcApp/method/methodGroup2"
     "testing"
 )
 
 func TestMethod_correctWork(t *testing.T) {
     assert := assert.New(t)
     
-    methodRpc := methodHelper_group2.ReturnRequestSchemaData{}
+    methodRpc := methodGroup2.MethodMyTest{}
     MethodValidate(assert, &methodRpc)
 }
 
