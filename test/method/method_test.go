@@ -9,7 +9,6 @@ import (
 	"testing"
 )
 
-
 func TestMethod_correctWork(t *testing.T) {
 	assert := assert.New(t)
 
@@ -30,10 +29,10 @@ func MethodValidate(assert *assert.Assertions, methodRpc rpcInterface.Method) {
 	}
 
 	for key := range methodRequestSchema {
-		_, ok := fieldsMap[key]
-		assert.Equal(ok, true, "[MethodName]: RequestSchema field '"+key +"' is not add to Data")
-
-		// TODO: RequestSchema.Type есть в Reform
-	}
+        _, ok := fieldsMap[key]
+        assert.Equal(ok, true, "[MethodName]: RequestSchema field '"+key+"' is not add to Data")
+        
+        // TODO: RequestSchema.Type есть в Reform
+    }
 
 }

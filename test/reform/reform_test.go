@@ -14,7 +14,6 @@ import (
 	"testing"
 )
 
-
 var testJsonString22 = `{
 "name":"Hello",
 "email": "test@mail.ru"
@@ -38,25 +37,23 @@ func TestReform_112a(t *testing.T) {
 
 	keys := make([]rpcStruct.ReformSchema, 0, len(RequestSchema))
 	for fieldName := range RequestSchema {
-		keys = append(keys, RequestSchema[fieldName])
-
-		jsonFieldValue, ok := jsonMap[ RequestSchema[fieldName].Field ]
-		assert.Equal(ok, true)
-
-		var str string
-		err := json.Unmarshal(jsonFieldValue, &str)
-		assert.Nil(err)
-
-
-		err2 := reflections.SetField(dataStructLink, fieldName, &str)
-		assert.Nil(err2)
-	}
+        keys = append(keys, RequestSchema[fieldName])
+        
+        jsonFieldValue, ok := jsonMap[RequestSchema[fieldName].Field]
+        assert.Equal(ok, true)
+        
+        var str string
+        err := json.Unmarshal(jsonFieldValue, &str)
+        assert.Nil(err)
+        
+        err2 := reflections.SetField(dataStructLink, fieldName, &str)
+        assert.Nil(err2)
+    }
 
 	assert.Equal(*rpcMethod.Data.Name, "Hello")
 	assert.Equal(*rpcMethod.Data.Email, "test@mail.ru")
 	assert.NotNil(keys)
 }
-
 
 func RpcMethodDataInit(method rpcInterface.Method, jsonMap map[string]json.RawMessage) {
 	// get method schema
@@ -77,33 +74,32 @@ func RpcMethodDataInit(method rpcInterface.Method, jsonMap map[string]json.RawMe
 	var ReformNew = reformHelper.GetBaseReform()
 
 	for fieldName := range RequestSchema {
-
-		jsonFieldValue, ok := jsonMap[ RequestSchema[fieldName].Field ]
-		log.Print(ok)
-
-		var str string
-		err := json.Unmarshal(jsonFieldValue, &str)
-		log.Print(err)
-
-		//err2 := reflections.SetField(dataStructLink, fieldName, &str)
-		//log.Print(err2)
-		//iStr := str
-
-
-		//var Reform = reformHelper.GetOldReform()
-		//var funcReform = Reform[ RequestSchema[fieldName].Type ]
-		//res, _ := funcReform(jsonFieldValue)
-		//strSet := reflect.ValueOf(&str)
-
-		res3, err3 := ReformNew.RunReformItem( RequestSchema[fieldName].Type, jsonFieldValue)
-		if err3 != nil {
-			log.Println("ERROR ReformNew.RunReformItem", err3)
-		}
-
-		strSet := reflect.ValueOf(res3)
-
-		dataStructLink.FieldByName(fieldName).Set(strSet)
-	}
+        
+        jsonFieldValue, ok := jsonMap[RequestSchema[fieldName].Field]
+        log.Print(ok)
+        
+        var str string
+        err := json.Unmarshal(jsonFieldValue, &str)
+        log.Print(err)
+        
+        // err2 := reflections.SetField(dataStructLink, fieldName, &str)
+        // log.Print(err2)
+        // iStr := str
+        
+        // var Reform = reformHelper.GetOldReform()
+        // var funcReform = Reform[ RequestSchema[fieldName].Type ]
+        // res, _ := funcReform(jsonFieldValue)
+        // strSet := reflect.ValueOf(&str)
+        
+        res3, err3 := ReformNew.RunReformItem(RequestSchema[fieldName].Type, jsonFieldValue)
+        if err3 != nil {
+            log.Println("ERROR ReformNew.RunReformItem", err3)
+        }
+        
+        strSet := reflect.ValueOf(res3)
+        
+        dataStructLink.FieldByName(fieldName).Set(strSet)
+    }
 }
 
 func TestReform_1312x(t *testing.T) {

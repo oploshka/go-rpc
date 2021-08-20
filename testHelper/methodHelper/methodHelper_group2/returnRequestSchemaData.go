@@ -7,39 +7,31 @@ import (
 	"project-my-test/testHelper/reformHelper"
 )
 
-
 type ReturnRequestSchemaData struct {
-	rpc.RpcMethod
-	Data struct{
-		Name  *string
-		Email *string
-	}
-	// TODO
-	// Di struct{
-	// 	Db 		diInterface.PostgresDb
-	//	Redis   diInterface.Redis
-	// }
+    rpc.RpcMethod
+    Data struct {
+        Name  *string
+        Email *string
+    }
 }
 
 func (r *ReturnRequestSchemaData) GetRequestSchema() map[string]rpcStruct.ReformSchema {
 	rs := make(map[string]rpcStruct.ReformSchema)
 
 	rs["Name"] = rpcStruct.ReformSchema{
-		Type: reformHelper.REFORM_STRING,
-		Field: "name", // TODO: FieldLoad and FieldReturn
-		Default: func() interface{} {
-			return "UserNameDefault"
-		},
-	}
+        Type:  reformHelper.REFORM_STRING,
+        Field: "name", // TODO: FieldLoad and FieldReturn
+        Default: func() interface{} {
+            return "UserNameDefault"
+        },
+    }
 	rs["Email"] = rpcStruct.ReformSchema{
-		Type: reformHelper.REFORM_STRING,
-		Field: "email", // TODO: FieldLoad and FieldReturn
-	}
+        Type:  reformHelper.REFORM_STRING,
+        Field: "email", // TODO: FieldLoad and FieldReturn
+    }
 	//RequestSchema struct{ Name, Email string `mytag:"MyEmail"` }
 	return rs
 }
-
-
 
 func (r *ReturnRequestSchemaData) Run() rpcInterface.Response {
 	r.Response.SetData("test::string", "string")
@@ -47,5 +39,3 @@ func (r *ReturnRequestSchemaData) Run() rpcInterface.Response {
 	r.Response.GetError().SetCode("ERROR")
 	return r.Response
 }
-
-

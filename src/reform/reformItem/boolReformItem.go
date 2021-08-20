@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 )
 
-type BooleanReformItem struct {}
+type BooleanReformItem struct{}
 
 func (ri *BooleanReformItem) Validate(jsonFieldValue json.RawMessage) (interface{}, error) {
 	var str bool
@@ -21,7 +21,6 @@ func (ri *BooleanReformItem) Validate(jsonFieldValue json.RawMessage) (interface
 //   self::FILTER_MIN => 0,
 //   self::FILTER_MAX => 1000000000,
 // ];
-
 
 //func (ri *intReformItem) Filter(jsonFieldValue json.RawMessage) (interface{}, error) {
 //	return "asda", nil

@@ -8,38 +8,38 @@ import (
 )
 
 type MethodTestData1 struct {
-	rpc.RpcMethod
-	Data struct{
-		TestUserString 	*string
-		TestUserInt 	*int
-		TestUserBool 	*bool
-	}
-	// di
-	//Logger *iLogger
+    rpc.RpcMethod
+    Data struct {
+        TestUserString *string
+        TestUserInt    *int
+        TestUserBool   *bool
+    }
+    // di
+    // Logger *iLogger
 }
 
 func (r *MethodTestData1) GetRequestSchema() map[string]rpcStruct.ReformSchema {
 	rs := make(map[string]rpcStruct.ReformSchema)
 
 	rs["TestUserString"] = rpcStruct.ReformSchema{
-		Type: reformHelper.REFORM_STRING,
-		Field: "full_name",
-	}
+        Type:  reformHelper.REFORM_STRING,
+        Field: "full_name",
+    }
 	rs["TestUserInt"] = rpcStruct.ReformSchema{
-		Type: reformHelper.REFORM_INTEGER,
-		Field: "number",
-	}
+        Type:  reformHelper.REFORM_INTEGER,
+        Field: "number",
+    }
 	rs["TestUserBool"] = rpcStruct.ReformSchema{
-		Type: reformHelper.REFORM_BOOLEAN,
-		Field: "bool",
-	}
+        Type:  reformHelper.REFORM_BOOLEAN,
+        Field: "bool",
+    }
 	return rs
 }
 
 func (r *MethodTestData1) Run() rpcInterface.Response {
-	r.Response.SetData("test::string", "MethodTestData1.go string")
-	r.Response.SetData("test::json::full_name"	, r.Data.TestUserString)
-	r.Response.SetData("test::json::number"		, r.Data.TestUserInt)
-	r.Response.SetData("test::json::bool"		, r.Data.TestUserBool)
-	return r.Response
+    r.Response.SetData("test::string", "MethodTestData1.go string")
+    r.Response.SetData("test::json::full_name", r.Data.TestUserString)
+    r.Response.SetData("test::json::number", r.Data.TestUserInt)
+    r.Response.SetData("test::json::bool", r.Data.TestUserBool)
+    return r.Response
 }

@@ -1,23 +1,22 @@
 package rpc
 
 import (
-	"project-my-test/src/rpc/rpcInterface"
-	"project-my-test/src/rpc/rpcStruct"
+    "project-my-test/src/rpc/rpcInterface"
+    "project-my-test/src/rpc/rpcStruct"
 )
 
 type RpcMethod struct {
-	Response rpcInterface.Response
-	Data struct{}
-	Di   struct{}
+    Response rpcInterface.Response
+    Data     struct{}
+    Di       struct{}
 }
 
 func (r *RpcMethod) GetRequestSchema() map[string]rpcStruct.ReformSchema {
-	
-	return make(map[string]rpcStruct.ReformSchema)
+    return make(map[string]rpcStruct.ReformSchema)
 }
 
 func (rMeth *RpcMethod) SetResponse(rRes rpcInterface.Response) {
-	rMeth.Response = rRes
+    rMeth.Response = rRes
 }
 
 // abstract class Method implements \Oploshka\RpcInterface\Method {

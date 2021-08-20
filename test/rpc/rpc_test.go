@@ -38,20 +38,19 @@ func TestRpc_correctWork(t *testing.T) {
 
 }
 
-
 func TestRpc_correctWork2as(t *testing.T) {
 	assert := assert.New(t)
 	assert.NotNil(true)
 	/*
-	foods := map[string]interface{}{
-		"bacon": "delicious",
-		"eggs": struct {
-			source string
-			price  float64
-		}{"chicken", 1.75},
-		"steak": true,
-	}
-	 */
+    	foods := map[string]interface{}{
+    		"bacon": "delicious",
+    		"eggs": struct {
+    			source string
+    			price  float64
+    		}{"chicken", 1.75},
+    		"steak": true,
+    	}
+    */
 	//
 	//methodRun := &methodHelper_group2.ReturnRequestSchemaData{
 	//	Data: struct {
@@ -59,7 +58,5 @@ func TestRpc_correctWork2as(t *testing.T) {
 	//		Email *string
 	//	}{Name: "str", Email: "str"},
 	//}
-
-
-
+ 
 }

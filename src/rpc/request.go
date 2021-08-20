@@ -4,12 +4,12 @@ import "encoding/json"
 
 //
 type request struct {
-	requestId  string
-	methodName string
-	// dataType => json
-	data       map[string]json.RawMessage // Это временное решение, пока не станет понимания как можно лучше
-	language   string
-	version    string
+    requestId  string
+    methodName string
+    // dataType => json
+    data     map[string]json.RawMessage // Это временное решение, пока не станет понимания как можно лучше
+    language string
+    version  string
 }
 
 func (rReq *request) GetRequestId() string {
@@ -33,19 +33,19 @@ func (rReq *request) SetMethodName(methodName string) {
 }
 
 func NewRpcRequest(
-		requestId  string,
-		methodName string,
-		data       map[string]json.RawMessage,
-		language   string,
-		version    string,
-	) *request {
-
-	rpcRequest := request{
-		requestId: requestId,
-		methodName: methodName,
-		data: data,
-		language: language,
-		version: version,
-	}
-	return &rpcRequest
+    requestId string,
+    methodName string,
+    data map[string]json.RawMessage,
+    language string,
+    version string,
+) *request {
+    
+    rpcRequest := request{
+        requestId:  requestId,
+        methodName: methodName,
+        data:       data,
+        language:   language,
+        version:    version,
+    }
+    return &rpcRequest
 }
