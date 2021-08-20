@@ -8,9 +8,11 @@ import (
 type RpcMethod struct {
 	Response rpcInterface.Response
 	Data struct{}
+	Di   struct{}
 }
 
 func (r *RpcMethod) GetRequestSchema() map[string]rpcStruct.ReformSchema {
+	
 	return make(map[string]rpcStruct.ReformSchema)
 }
 

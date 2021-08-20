@@ -10,6 +10,10 @@ import (
 	"testing"
 )
 
+import jsoniter "github.com/json-iterator/go"
+
+var json2 = jsoniter.ConfigCompatibleWithStandardLibrary
+
 
 var testJsonString = `{
 "say":"Hello",
@@ -27,6 +31,7 @@ type RequestSchema struct{
 }
 
 
+
 func ShowStructure(s interface{}) {
 	a := reflect.ValueOf(s)
 	numfield := reflect.ValueOf(s).Elem().NumField()
@@ -38,6 +43,19 @@ func ShowStructure(s interface{}) {
 			reflect.ValueOf(s).Elem().Field(x).Type())
 	}
 }
+
+
+func TestJsoniter_decode(t *testing.T) {
+	assert := assert.New(t)
+	assert.NotNil(12)
+	//
+	var obj map[string]interface{}
+	json2.Unmarshal([]byte(testJsonString), &obj)
+
+	xType := fmt.Sprintf("%T", obj["sendMsg"])
+	assert.Equal(xType, "map[string]interface {}")
+}
+
 
 func TestJson_schema(t *testing.T) {
 	assert := assert.New(t)

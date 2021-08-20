@@ -14,6 +14,11 @@ type ReturnRequestSchemaData struct {
 		Name  *string
 		Email *string
 	}
+	// TODO
+	// Di struct{
+	// 	Db 		diInterface.PostgresDb
+	//	Redis   diInterface.Redis
+	// }
 }
 
 func (r *ReturnRequestSchemaData) GetRequestSchema() map[string]rpcStruct.ReformSchema {

@@ -1,10 +1,13 @@
 package rpc
 
+import "encoding/json"
+
 //
 type request struct {
 	requestId  string
 	methodName string
-	data       map[string]interface{}
+	// dataType => json
+	data       map[string]json.RawMessage // Это временное решение, пока не станет понимания как можно лучше
 	language   string
 	version    string
 }
@@ -15,7 +18,7 @@ func (rReq *request) GetRequestId() string {
 func (rReq *request) GetMethodName() string {
 	return rReq.methodName
 }
-func (rReq *request) GetData() map[string]interface{} {
+func (rReq *request) GetData() map[string]json.RawMessage {
 	return rReq.data
 }
 func (rReq *request) GetLanguage() string {
@@ -32,7 +35,7 @@ func (rReq *request) SetMethodName(methodName string) {
 func NewRpcRequest(
 		requestId  string,
 		methodName string,
-		data       map[string]interface{},
+		data       map[string]json.RawMessage,
 		language   string,
 		version    string,
 	) *request {
