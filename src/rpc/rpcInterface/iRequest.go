@@ -1,11 +1,13 @@
 package rpcInterface
 
-type Request interface {
-	GetRequestId() string
-	GetMethodName() string
-	GetData() map[string]interface{}
-	GetLanguage() string
-	GetVersion() string
+import "encoding/json"
 
-	SetMethodName(methodName string)
+type Request interface {
+    GetRequestId() string
+    GetMethodName() string
+    GetData() map[string]json.RawMessage // Это временное решение, пока не станет понимания как можно лучше
+    GetLanguage() string
+    GetVersion() string
+    
+    SetMethodName(methodName string)
 }

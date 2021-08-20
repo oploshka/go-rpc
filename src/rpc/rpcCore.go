@@ -1,26 +1,26 @@
 package rpc
 
 type RpcCore struct {
-	// # di                    string // di container
-	// # reform                string // validate and convert data  [ReformDebug]
-	rpcMethodStore *methodStore // method store
-
-	//
-	// # rpcRequestLoad        string // Post_MultipartFormData_Field - вытаскиваем данные из http запроса
-	// # rpcRequestFormatter   string // json_decode и json_encode (тут json->object)
-	// # rpcRequestStructure   string // вытаскиваем из структуры (что прислал пользователь) - данные
-	// # rpcResponseFormatter  string // json_decode и json_encode (тут object->json)
-	// # rpcResponseStructure  string // создаем структуру для отправки данных
+    // # di                    string // di container
+    // # reform                string // validate and convert data  [ReformDebug]
+    rpcMethodStore *methodStore // method store
+    
+    //
+    // # rpcRequestLoad        string // Post_MultipartFormData_Field - вытаскиваем данные из http запроса
+    // # rpcRequestFormatter   string // json_decode и json_encode (тут json->object)
+    // # rpcRequestStructure   string // вытаскиваем из структуры (что прислал пользователь) - данные
+    // # rpcResponseFormatter  string // json_decode и json_encode (тут object->json)
+    // # rpcResponseStructure  string // создаем структуру для отправки данных
 }
 
 func (rc *RpcCore) GetRpcMethodStore() *methodStore {
-	return rc.rpcMethodStore
+    return rc.rpcMethodStore
 }
 
 func NewRpcCore() *RpcCore {
-	rC := new(RpcCore)
-	rC.rpcMethodStore = NewMethodStore()
-	return rC
+    rC := new(RpcCore)
+    rC.rpcMethodStore = NewMethodStore()
+    return rC
 }
 
 // # // getters
