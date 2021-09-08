@@ -26,12 +26,12 @@ func (rMS *methodStore) Add(name string, class rpcInterface.Method, group string
     rMS.store[name] = methodStoreInfo{name: name, class: class, group: group}
 }
 
-func (rMS *methodStore) GetMethodInfo(name string) (methodStoreInfo, bool) {
+func (rMS *methodStore) GetMethodInfo(name string) (rpcInterface.MethodStoreInfo, bool) {
     val, ok := rMS.store[name]
-    return val, ok
+    return &val, ok
 }
 
-func NewMethodStore() *methodStore {
+func NewMethodStore() rpcInterface.MethodStore {
     rMS := new(methodStore)
     rMS.store = make(map[string]methodStoreInfo)
     return rMS

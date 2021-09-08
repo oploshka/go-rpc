@@ -1,4 +1,4 @@
-package rpcStructure
+package rpcStructureResponse
 
 import (
     "project-my-test/src/rpc"

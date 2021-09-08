@@ -1,8 +1,9 @@
-package rpc
+package rpcCore
 
 import (
     "encoding/json"
     "project-my-test/example/rpcApp/reform"
+    "project-my-test/src/rpc"
     "project-my-test/src/rpc/rpcInterface"
     "reflect"
 )
@@ -17,8 +18,8 @@ func (rc *RpcCore) RunMethodByRpcRequest(rpcRequest rpcInterface.Request) rpcInt
     methodName := rpcRequest.GetMethodName()
     methodInfo, ok := rc.rpcMethodStore.GetMethodInfo(methodName)
     if !ok {
-        rpcResponse := NewRpcResponse(rpcRequest)
-        rpcResponse.SetError(NewRpcError(
+        rpcResponse := rpc.NewRpcResponse(rpcRequest)
+        rpcResponse.SetError(rpc.NewRpcError(
             "ERROR_METHOD_NOT_FOUND",
             "method '"+methodName+"' undefined",
             nil,
@@ -42,13 +43,13 @@ func (rc *RpcCore) RunMethodByRpcRequest(rpcRequest rpcInterface.Request) rpcInt
     // валидация данных и DTO
     errReform := rc.RpcMethodDataInit(rpcMethod, requestDataJsonRaw)
     if errReform != nil {
-        rpcResponse := NewRpcResponse(rpcRequest)
+        rpcResponse := rpc.NewRpcResponse(rpcRequest)
         rpcResponse.SetError(errReform)
         return rpcResponse
     }
     
     // init
-    rpcMethod.SetResponse(NewRpcResponse(rpcRequest))
+    rpcMethod.SetResponse(rpc.NewRpcResponse(rpcRequest))
     // выполняем метод
     rpcResponse := rpcMethod.Run()
     // отдаем ответ
@@ -73,13 +74,13 @@ func (rc *RpcCore) RpcMethodDataInit(method rpcInterface.Method, jsonMap map[str
         
         jsonFieldValue, ok := jsonMap[RequestSchema[fieldName].Field]
         if !ok {
-            return NewRpcError("VALIDATE_ERROR", "not require field: "+RequestSchema[fieldName].Field, nil)
+            return rpc.NewRpcError("VALIDATE_ERROR", "not require field: "+RequestSchema[fieldName].Field, nil)
         }
         
         res3, err3 := Reform.RunReformItem(RequestSchema[fieldName].Type, jsonFieldValue)
         if err3 != nil {
             // log.Println("ERROR ReformNew.RunReformItem", err3)
-            return NewRpcError("VALIDATE_ERROR", err3.Error(), nil)
+            return rpc.NewRpcError("VALIDATE_ERROR", err3.Error(), nil)
         }
         
         strSet := reflect.ValueOf(res3)
