@@ -7,3 +7,7 @@ vendor
 #
 bin/*
 !bin/.gitkeep
+
+__*.md
+__*.php
+main.exe
