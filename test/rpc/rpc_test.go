@@ -6,12 +6,13 @@ import (
     "project-my-test/example/rpcApp/method/methodGroup2"
     "project-my-test/src/rpc"
     "project-my-test/src/rpc/plugin/rpcStructureRequest"
+    "project-my-test/src/rpc/rpcCore"
     "testing"
 )
 
 func TestRpc_correctWork(t *testing.T) {
     assert := assert.New(t)
-    rpcClient := rpc.NewRpcCore()
+    rpcClient := rpcCore.NewRpcCore()
     
     _tMethodName1 := "test2"
     _tMethodClass1 := new(methodGroup2.MethodMyTest)

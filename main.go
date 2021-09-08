@@ -4,25 +4,28 @@ import (
     "io/ioutil"
     "log"
     "net/http"
-    "project-my-test/example"
+    "project-my-test/example/rpcApp"
 )
 
 func main() {
     
-    // rpc
-    http.HandleFunc("/", example.TestHttpRpc)
+    // init
+    rpcClient := rpcApp.CreateTestRpc()
     
-    // api page
+    
+    // page - rpc
+    http.HandleFunc("/", rpcClient.RunHttp)
+    // page - api form
     http.HandleFunc("/api-form", func(w http.ResponseWriter, r *http.Request) {
-        dat, err := ioutil.ReadFile("./static/api.html")
+        text, err := ioutil.ReadFile("./static/api.html")
         if err != nil {
             w.Write([]byte("Не удалось считать файл"))
             return
         }
         w.Header().Set("Content-Type", "text/html")
-        w.Write(dat)
+        w.Write(text)
     })
-    // browser favicon fix
+    // page - browser favicon fix
     http.HandleFunc("/favicon.ico", func(w http.ResponseWriter, r *http.Request) {
         w.Write([]byte(""))
     })

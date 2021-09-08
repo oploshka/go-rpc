@@ -1,14 +1,14 @@
 package rpcApp
 
 import (
-    "project-my-test/src/rpc"
     "project-my-test/example/rpcApp/method/methodGroup1"
     "project-my-test/example/rpcApp/method/methodGroup2"
+    "project-my-test/src/rpc/rpcCore"
 )
 
-func CreateTestRpc() *rpc.RpcCore {
+func CreateTestRpc() *rpcCore.RpcCore {
     
-    rpcClient := rpc.NewRpcCore()
+    rpcClient := rpcCore.NewRpcCore()
     rpcMethodStore := rpcClient.GetRpcMethodStore()
     //
     rpcMethodStore.Add("testMethod", new(methodGroup2.MethodMyTest), "")
