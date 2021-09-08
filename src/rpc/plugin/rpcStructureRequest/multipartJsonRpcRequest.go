@@ -1,6 +1,10 @@
-package rpcStructure
+package rpcStructureRequest
 
-import "project-my-test/src/rpc/rpcInterface"
+import (
+    "encoding/json"
+    "project-my-test/src/rpc"
+    "project-my-test/src/rpc/rpcInterface"
+)
 
 /*
 {
@@ -18,40 +22,36 @@ import "project-my-test/src/rpc/rpcInterface"
 }
 */
 
+type MultipartJsonRpcRequest_request struct {
+    Id   interface{} `json:"id"`
+    Name string      `json:"name"`
+    
+    // TODO: fix
+    // Data interface{} `json:"data"`
+    Data map[string]json.RawMessage `json:"data"`
+}
+
 type MultipartJsonRpcRequest struct {
     Specification        string                           `json:"specification"`
     SpecificationVersion string                           `json:"specificationVersion"`
     Version              string                           `json:"version"`
     Language             string                           `json:"language"`
-    Request              *MultipartJsonRpcRequest_request `json:"response"`
-}
-type MultipartJsonRpcRequest_request struct {
-    Id   interface{} `json:"id"`
-    Name string      `json:"name"`
-    Data interface{} `json:"data"`
+    Request              *MultipartJsonRpcRequest_request `json:"request"`
 }
 
-func MultipartJsonRpcRequestDecode() {
-    // if(
-    //   !is_array($arr)
-    //   || !isset( $arr['request'] )
-    //   || !is_array($arr['request'])
-    //   || !isset($arr['request']['name']) || !is_string($arr['request']['name'])
-    //   || !isset($arr['request']['data']) || !is_array($arr['request']['data'])
-    // ){
-    //   throw new \Oploshka\RpcException\ReformException('ERROR_REQUEST_STRUCTURE_DECODE');
-    // }
-    //
-    // return new \Oploshka\Rpc\RpcRequest([
-    //   'requestId'   => $arr['request']['id'] ?? null,
-    //   'methodName'  => $arr['request']['name'],
-    //   'data'        => $arr['request']['data'],
-    //   // TODO
-    //   // 'language'    => $arr['request']['data'],
-    //   // 'version'     => $arr['request']['data'],
-    // ]);
-    // return &resp
+// TODO: add return error
+func (obj *MultipartJsonRpcRequest) ConvertToRpcRequest() rpcInterface.Request {
+    return rpc.NewRpcRequest(
+        obj.Request.Id, // requestId string,
+        obj.Request.Name, // methodName string,
+        obj.Request.Data, // data map[string]json.RawMessage,
+        obj.Language, // language string,
+        obj.Version, // version string,
+    )
 }
+
+
+
 
 //
 // MultipartJsonRpcRequestEncode - это вспомогательный блок (нужен для удобства написания тестов)

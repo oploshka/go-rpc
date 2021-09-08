@@ -4,7 +4,7 @@ import "encoding/json"
 
 //
 type request struct {
-    requestId  string
+    requestId  interface{}
     methodName string
     // dataType => json
     data     map[string]json.RawMessage // Это временное решение, пока не станет понимания как можно лучше
@@ -12,7 +12,7 @@ type request struct {
     version  string
 }
 
-func (rReq *request) GetRequestId() string {
+func (rReq *request) GetRequestId() interface{} {
 	return rReq.requestId
 }
 func (rReq *request) GetMethodName() string {
@@ -33,7 +33,7 @@ func (rReq *request) SetMethodName(methodName string) {
 }
 
 func NewRpcRequest(
-    requestId string,
+    requestId interface{},
     methodName string,
     data map[string]json.RawMessage,
     language string,
