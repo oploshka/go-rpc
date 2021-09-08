@@ -6,10 +6,10 @@ import (
     "github.com/oleiade/reflections"
     "github.com/stretchr/testify/assert"
     "log"
-    "project-my-test/src/rpc/rpcInterface"
-    "project-my-test/src/rpc/rpcStruct"
     "project-my-test/example/rpcApp/method/methodGroup2"
     "project-my-test/example/rpcApp/reform"
+    "project-my-test/src/rpc/rpcInterface"
+    "project-my-test/src/rpc/rpcStruct"
     "reflect"
     "testing"
 )
@@ -119,4 +119,24 @@ func TestReform_1312x(t *testing.T) {
     
     assert.Equal(*rpcMethod.Data.Name, "Hello")
     assert.Equal(*rpcMethod.Data.Email, "test@mail.ru")
+}
+
+func TestReform_1311saa(t *testing.T) {
+    assert := assert.New(t)
+    
+    var greeting interface{} = "42"
+    
+    switch g := greeting.(type) {
+    case string:
+        fmt.Println("g is a string with length", len(g))
+    case int:
+        fmt.Println("g is an integer, whose value is", g)
+    default:
+        fmt.Println("I don't know what g is")
+    }
+    
+    integ, ok := greeting.(int)
+    
+    assert.Equal(ok, false)
+    assert.Equal(integ, 0)
 }
