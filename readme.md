@@ -14,5 +14,5 @@ gofmt -s -w .
 
 
 ```shell
-go build main.go && main.exe``
+go build main.go && main.exe
 ```

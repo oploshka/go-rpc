@@ -1,6 +1,7 @@
 package rpcCore
 
 import (
+    "project-my-test/src/di"
     "project-my-test/src/rpc"
     "project-my-test/src/rpc/rpcInterface"
 )
@@ -9,6 +10,9 @@ type RpcCore struct {
     // # di                    string // di container
     // # reform                string // validate and convert data  [ReformDebug]
     rpcMethodStore rpcInterface.MethodStore // method store
+    
+    // TODO fix di
+    rpcLogger      rpcInterface.Logger
     
     //
     // # rpcRequestLoad        string // Post_MultipartFormData_Field - вытаскиваем данные из http запроса
@@ -24,7 +28,8 @@ func (rc *RpcCore) GetRpcMethodStore() rpcInterface.MethodStore {
 
 func NewRpcCore() *RpcCore {
     rC := new(RpcCore)
-    rC.rpcMethodStore = rpc.NewMethodStore()
+    rC.rpcMethodStore   = rpc.NewMethodStore()
+    rC.rpcLogger        = di.CreateLogger()
     return rC
 }
 

@@ -48,6 +48,9 @@ func (rc *RpcCore) RunMethodByRpcRequest(rpcRequest rpcInterface.Request) rpcInt
         return rpcResponse
     }
     
+    // di
+    RpcMethodDiInit(rpcMethod, rc.rpcLogger)
+    
     // init
     rpcMethod.SetResponse(rpc.NewRpcResponse(rpcRequest))
     // выполняем метод
@@ -55,6 +58,27 @@ func (rc *RpcCore) RunMethodByRpcRequest(rpcRequest rpcInterface.Request) rpcInt
     // отдаем ответ
     return rpcResponse
 }
+
+// RpcMethodDiInit ...
+// TODO: update di init
+func RpcMethodDiInit(method rpcInterface.Method, logger rpcInterface.Logger) rpcInterface.Error {
+    objValue := reflect.ValueOf(method).Elem()
+    
+    dataStructLink := objValue.FieldByName("Logger")
+    
+    // todo validate dataStructLink isset and correct type
+    
+    if !dataStructLink.IsValid() {
+        // continue
+        return nil
+    }
+    
+    refLogger := reflect.ValueOf(logger)
+    dataStructLink.Set(refLogger)
+    
+    return nil
+}
+
 
 // RpcMethodDataInit
 // это магический метод DTO входных данных - который закидывает данные внутрь метода
