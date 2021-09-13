@@ -1,3 +1,15 @@
+cd ./project_root
+go mod download
+go mod vendor
+go mod verify
+
+cd ..
+
+docker-compose up -d
+
+make migr-status
+make migr-up
+
 # Go Rpc
 
 ## Linter

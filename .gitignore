@@ -1,14 +1,6 @@
 .idea
 .vscode
-.DS_Store
 
 vendor
-
-#
-bin/*
-!bin/.gitkeep
-
-__*.md
-__*.php
-main.exe
-main.exe~
+.docker-compose.override.yaml
+.env

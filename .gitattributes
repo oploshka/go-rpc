@@ -1,0 +1,6 @@
+* text=lf
+*.md test eol=lf
+*.sql text eol=lf
+*.sh test eol=lf
+*.go test eol=lf
+CHANGELOG.md export-ignore
