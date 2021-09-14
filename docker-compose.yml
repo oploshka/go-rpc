@@ -19,13 +19,6 @@ services:
     volumes:
       - ./project_root:/app:rw
 
-    #command: "bee dlv -package=\"./cmd/main/main.go\" -port=2345"
-    #command: >
-    #  sh -c "go build -gcflags \"all=-N -l\" -o ./bin/debug-build ./cmd/main/main.go &&
-    #  dlv exec ./bin/debug-build --listen=:2345 --headless --api-version=2 --accept-multiclient"
-
-    #command: "bee run -main=./cmd/main"
-
     command: >
       sh -c "
       case $CMD_MODE in

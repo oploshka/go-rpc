@@ -4,9 +4,8 @@
 
 vendor
 
-#
-bin/*
-!bin/.gitkeep
+project_root/bin/*
+!project_root/bin/.gitkeep
 
 __*.md
 __*.yml
