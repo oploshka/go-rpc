@@ -15,7 +15,7 @@ services:
     env_file:
       - '.env'
     volumes:
-      - ./project_root:/app
+      - ./project_root:/app:rw
 
 
     #command: "bee dlv -package=\"./cmd/main/main.go\" -port=2345"
@@ -54,7 +54,7 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
-      - postgresql-data:/var/lib/postgresql/data
+      - postgresql-data:/var/lib/postgresql/data:rw
 
   goose:
     container_name: migrations-goose
