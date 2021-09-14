@@ -4,6 +4,7 @@ import (
     "io/ioutil"
     "log"
     "net/http"
+    "os"
     "project-my-test/example/rpcApp"
 )
 
@@ -17,7 +18,8 @@ func main() {
     http.HandleFunc("/", rpcClient.RunHttp)
     // page - api form
     http.HandleFunc("/api-form", func(w http.ResponseWriter, r *http.Request) {
-        text, err := ioutil.ReadFile("./static/api.html")
+        pwd, _ := os.Getwd()
+        text, err := ioutil.ReadFile(pwd + "/static/api.html")
         if err != nil {
             w.Write([]byte("Не удалось считать файл"))
             return

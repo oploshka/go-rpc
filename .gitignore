@@ -9,9 +9,15 @@ bin/*
 !bin/.gitkeep
 
 __*.md
+__*.yml
+__*.yaml
 __*.php
-main.exe
-main.exe~
 
-.docker-compose.override.yaml
+docker-compose.override.yml
 .env
+
+# project build ignore
+project_root/app
+project_root/app~
+project_root/main.exe
+project_root/main.exe~
