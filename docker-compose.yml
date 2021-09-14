@@ -15,13 +15,9 @@ services:
     env_file:
       - '.env'
     ports:
-      - "80:80"
+      - "8080:8080"
     volumes:
       - ./project_root:/app:rw
-
-    ports:
-      - "8080:8080"
-
 
     #command: "bee dlv -package=\"./cmd/main/main.go\" -port=2345"
     #command: >
