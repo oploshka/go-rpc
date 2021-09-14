@@ -19,3 +19,11 @@ migr-redo:
 #Creates new migration file with the current timestamp
 migr-create:
 	docker-compose exec ${DOCKER_COMPOSE_NAME_MIGRATION} sh -c "./goose -dir=./migrations/ -v create \"\" sql"
+
+init:
+	cd ./project_root && \
+	go mod download && \
+	go mod vendor && \
+	go mod verify && \
+	cd .. && \
+	docker-compose up -d
