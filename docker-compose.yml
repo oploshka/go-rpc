@@ -30,11 +30,11 @@ services:
       case $CMD_MODE in
 
         mode_bee)
-          bee run -main=./cmd/main
+          bee run -main=./
         ;;
 
         mode_debug)
-          go build -gcflags \"all=-N -l\" -o ./bin/debug-build ./cmd/main/main.go &&
+          go build -gcflags \"all=-N -l\" -o ./bin/debug-build ./main.go &&
           dlv exec ./bin/debug-build --listen=:2345 --headless --api-version=2 --accept-multiclient
         ;;
 
