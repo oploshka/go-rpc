@@ -9,6 +9,7 @@
 *.sql           text eol=lf
 *.go            test eol=lf   diff=golang
 *.yaml          text eol=lf
+*.yml           text eol=lf
 *.sh            test eol=lf
 *.bat           test eol=crlf
 *.cmd           test eol=crlf
