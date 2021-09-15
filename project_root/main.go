@@ -19,7 +19,7 @@ func main() {
     // page - api form
     http.HandleFunc("/api-form", func(w http.ResponseWriter, r *http.Request) {
         pwd, _ := os.Getwd()
-        text, err := ioutil.ReadFile(pwd + "/static/api.html")
+        text, err := ioutil.ReadFile(pwd + "/template/api.html")
         if err != nil {
             w.Write([]byte("Не удалось считать файл"))
             return

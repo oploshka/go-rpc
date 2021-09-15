@@ -4,14 +4,14 @@ import (
     "github.com/stretchr/testify/assert"
     "project-my-test/example/rpcApp/method/methodGroup1"
     "project-my-test/example/rpcApp/method/methodGroup2"
-    "project-my-test/src/di"
+  "project-my-test/src/service"
     "project-my-test/src/rpc/rpcCore"
     "testing"
 )
 
 func TestMethodDiSet(t *testing.T) {
     assert := assert.New(t)
-    logger := di.CreateLogger()
+    logger := service.CreateLogger()
     // get method schema
     rpcMethod := new(methodGroup2.MethodMyTest)
     
@@ -28,7 +28,7 @@ func TestMethodDiSet(t *testing.T) {
 
 func TestMethodDiEmptySet(t *testing.T) {
     assert := assert.New(t)
-    logger := di.CreateLogger()
+    logger := service.CreateLogger()
     
     // get method schema
     rpcMethod := new(methodGroup1.MethodTestData3)

@@ -1,7 +1,7 @@
 package rpcCore
 
 import (
-    "project-my-test/src/di"
+  "project-my-test/src/service"
     "project-my-test/src/rpc"
     "project-my-test/src/rpc/rpcInterface"
 )
@@ -29,7 +29,7 @@ func (rc *RpcCore) GetRpcMethodStore() rpcInterface.MethodStore {
 func NewRpcCore() *RpcCore {
     rC := new(RpcCore)
     rC.rpcMethodStore   = rpc.NewMethodStore()
-    rC.rpcLogger        = di.CreateLogger()
+    rC.rpcLogger        = service.CreateLogger()
     return rC
 }
 
