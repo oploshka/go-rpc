@@ -1,11 +1,70 @@
 version: "3.7"
 
 services:
-  db:
-    image: postgres:12
-    restart: always
+
+  go-rpc-develop:
+    container_name: go-rpc-develop
+    build:
+      context: ./dockerfiles/go
+      dockerfile: Dockerfile
+      args:
+        USER_ID: 1000
+        GROUP_ID: 1000
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    env_file:
+      - '.env'
     ports:
-      - "45432:5432"
+      - "8080:8080"
+    volumes:
+      - ./project_root:/app:rw
+
+    command: >
+      sh -c "
+      case $CMD_MODE in
+
+        mode_bee)
+          bee run -main=./
+        ;;
+
+        mode_debug)
+          go build -gcflags \"all=-N -l\" -o ./bin/debug-build ./main.go &&
+          dlv exec ./bin/debug-build --listen=:2345 --headless --api-version=2 --accept-multiclient
+        ;;
+
+      esac"
+    security_opt:
+      - "apparmor=unconfined"
+    cap_add:
+      - SYS_PTRACE
+    restart: always
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:12
     environment:
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - postgresql-data:/var/lib/postgresql/data:rw
+
+  goose:
+    container_name: migrations-goose
+    build:
+      context: ./dockerfiles/goose
+      dockerfile: Dockerfile
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    environment:
+      - GOOSE_DRIVER=$GOOSE_DRIVER
+      - GOOSE_DBSTRING=$GOOSE_DBSTRING
+    volumes:
+      - ./project_root/migrations:/app/migrations:rw
+    depends_on:
+      - postgres
+
+volumes:
+  postgresql-data:
+  go-rpc-develop-data:

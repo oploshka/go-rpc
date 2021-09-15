@@ -1,11 +1,6 @@
 version: "3.7"
 
-# database (PostgreSQL)
-x-postgresql-volumes: &x-postgresql-volumes
-  - ./db_data:/var/lib/postgresql/data:rw
-
 services:
-
-  db:
-    volumes:
-      *x-postgresql-volumes
+  postgres:
+    ports:
+      - "127.0.0.1:5432:5432"

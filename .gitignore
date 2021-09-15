@@ -4,10 +4,19 @@
 
 vendor
 
-#
-bin/*
-!bin/.gitkeep
+project_root/bin/*
+!project_root/bin/.gitkeep
 
 __*.md
+__*.yml
+__*.yaml
 __*.php
-main.exe
+
+docker-compose.override.yml
+.env
+
+# project build ignore
+project_root/app
+project_root/app~
+project_root/main.exe
+project_root/main.exe~

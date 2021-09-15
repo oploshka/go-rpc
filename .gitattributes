@@ -1,0 +1,22 @@
+*      text=lf
+
+# The above will handle all files NOT found below
+# These files are text and should be normalized (Convert crlf => lf)
+
+*.gitattributes text eol=lf
+.gitignore      text eol=lf
+*.md            text eol=lf   diff=markdown
+*.sql           text eol=lf
+*.go            test eol=lf   diff=golang
+*.yaml          text eol=lf
+*.yml           text eol=lf
+*.sh            test eol=lf
+*.bat           test eol=crlf
+*.cmd           test eol=crlf
+Dockerfile      test eol=lf
+
+# Exclude files from exporting
+
+.gitattributes  export-ignore
+.gitignore      export-ignore
+CHANGELOG.md export-ignore
