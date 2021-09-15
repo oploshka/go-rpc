@@ -37,7 +37,7 @@ func TestRpc_correctWork(t *testing.T) {
     rpcRequest.SetMethodName(_tMethodName1)
     
     rpcResponse := rpcClient.RunMethodByRpcRequest(rpcRequest)
-    assert.Equal(rpcResponse.GetError().GetCode(), "ERROR", "MethodInfo test - empty")
+    assert.Equal(rpcResponse.GetError().GetCode(), "VALIDATE_ERROR", "MethodInfo test - empty")
     
 }
 

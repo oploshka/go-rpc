@@ -19,3 +19,4 @@ make migr-up
 ```shell
 gofmt -s -w .
 ```
+
